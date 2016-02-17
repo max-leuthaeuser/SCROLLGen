@@ -1,0 +1,9 @@
+@(model: crom_l1_composed.Model)
+
+@import generator.CROMGenerator
+@import crom_l1_composed.Model
+
+object CROMApplication extends App {
+    @generator.CROMGenerator.getDataTypes(model).map(DataTypeTemplate(_).toString())
+    @generator.CROMGenerator.getNaturalTypes(model).map(NaturalTypeTemplate(_).toString())
+}

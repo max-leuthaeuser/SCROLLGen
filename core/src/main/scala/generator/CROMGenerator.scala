@@ -1,9 +1,10 @@
 package generator
 
 import crom_l1_composed._
-import template.txt.CROM
+import templates.txt.CROMApplicationTemplate
 
 import scala.collection.JavaConversions._
+import scalariform.formatter.ScalaFormatter
 
 object CROMGenerator {
   def getExtends(dt: DataType): String = dt.getTr_extends match {
@@ -38,5 +39,5 @@ object CROMGenerator {
 }
 
 class CROMGenerator extends Generator[Model] {
-  override def generate(model: Model): String = CROM(model).toString().trim
+  override def generate(model: Model): String = ScalaFormatter.format(CROMApplicationTemplate(model).toString().trim)
 }

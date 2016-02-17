@@ -1,0 +1,9 @@
+@(dataType: crom_l1_composed.DataType)
+
+@import generator.CROMGenerator
+@import crom_l1_composed.DataType
+
+class @(dataType.getName) @(generator.CROMGenerator.getExtends(dataType)){
+    @CROMGenerator.getAttributes(dataType).map(AttributeTemplate(_).toString())
+    @CROMGenerator.getOperations(dataType).map(OperationTemplate(_).toString())
+}

@@ -1,0 +1,8 @@
+@(operation: crom_l1_composed.Operation)
+
+@import generator.CROMGenerator
+@import crom_l1_composed.Operation
+
+def @(operation.getName)@(CROMGenerator.getParameters(operation)): @(CROMGenerator.getType(operation)) = {
+    @(operation.getOperation)
+}

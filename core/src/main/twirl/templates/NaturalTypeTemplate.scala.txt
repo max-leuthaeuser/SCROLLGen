@@ -1,0 +1,9 @@
+@(naturalType: crom_l1_composed.NaturalType)
+
+@import generator.CROMGenerator
+@import crom_l1_composed.NaturalType
+
+class @(naturalType.getName) @(generator.CROMGenerator.getExtends(naturalType)){
+    @CROMGenerator.getAttributes(naturalType).map(AttributeTemplate(_).toString())
+    @CROMGenerator.getOperations(naturalType).map(OperationTemplate(_).toString())
+}

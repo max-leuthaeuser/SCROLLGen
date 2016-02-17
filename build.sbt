@@ -1,5 +1,3 @@
-val scalatestVersion = "2.2.1"
-
 import twirl.sbt.TwirlPlugin._
 
 lazy val commonSettings = Seq(
@@ -7,6 +5,7 @@ lazy val commonSettings = Seq(
   version := "0.0.1",
   logBuffered := false,
   libraryDependencies ++= Seq(
+    "org.scalariform" %% "scalariform" % "0.1.8",
     "org.eclipse.emf" % "org.eclipse.emf.common" % "2.10.1",
     "org.eclipse.emf" % "org.eclipse.emf.ecore" % "2.10.1",
     "org.eclipse.uml2" % "org.eclipse.uml2.uml" % "3.1.0.v201006071150"
@@ -43,5 +42,5 @@ lazy val tests = (project in file("tests")).
   settings(commonSettings: _*).
   settings(
     parallelExecution in Test := false,
-    libraryDependencies ++= Seq("org.scalatest" %% "scalatest" % scalatestVersion % "test")
+    libraryDependencies ++= Seq("org.scalatest" %% "scalatest" % "2.2.1" % "test")
   ).dependsOn(core)
