@@ -1,0 +1,7 @@
+@(model: crom_l1_composed.Model)
+
+@import _root_.crom_l1_composed.Model
+
+object CROMModel extends App {
+ @model.toString
+}
