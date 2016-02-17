@@ -1,3 +1,5 @@
+import generator.CROMGenerator
+import importer.CROMImporter
 import org.scalatest.{Matchers, GivenWhenThen, FeatureSpec}
 
 class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {

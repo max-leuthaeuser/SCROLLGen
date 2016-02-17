@@ -1,8 +1,10 @@
+package importer
+
 import org.eclipse.emf.common.util.URI
-import org.eclipse.emf.ecore.{EPackage, EObject}
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
+import org.eclipse.emf.ecore.{EObject, EPackage}
 
 /**
   * Trait providing functionality for importing ecore models.

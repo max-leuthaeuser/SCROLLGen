@@ -1,3 +1,4 @@
+import importer.CROMImporter
 import org.scalatest.{FeatureSpec, GivenWhenThen, Matchers}
 
 class ECoreImporterTest extends FeatureSpec with GivenWhenThen with Matchers {

@@ -1,5 +1,6 @@
-import crom_l1_composed.Crom_l1_composedPackage
-import crom_l1_composed.Model
+package importer
+
+import crom_l1_composed.{Crom_l1_composedPackage, Model}
 
 class CROMImporter(p: String) extends ECoreImporter[Model] {
   path = p
