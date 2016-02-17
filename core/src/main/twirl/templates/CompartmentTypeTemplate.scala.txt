@@ -1,0 +1,12 @@
+@(compartmentType: crom_l1_composed.CompartmentType, model: crom_l1_composed.Model)
+
+@import generator.CROMGenerator
+@import crom_l1_composed.Model
+@import crom_l1_composed.CompartmentType
+
+class @(compartmentType.getName) @(CompartmentExtendsTemplate(compartmentType, model).toString().trim){
+    @CROMGenerator.getAttributes(compartmentType).map(AttributeTemplate(_).toString())
+    @CROMGenerator.getOperations(compartmentType).map(OperationTemplate(_).toString())
+    @CROMGenerator.getRoles(compartmentType).map(rt => RoleTypeTemplate(rt, model).toString())
+    // TODO: relationships, role-groups, role-restrictions, role-constraints
+}

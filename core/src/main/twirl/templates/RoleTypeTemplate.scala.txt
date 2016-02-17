@@ -1,0 +1,10 @@
+@(roleType: crom_l1_composed.RoleType, model: crom_l1_composed.Model)
+
+@import generator.CROMGenerator
+@import crom_l1_composed.Model
+@import crom_l1_composed.RoleType
+
+class @(roleType.getName) @(ExtendsTemplate(roleType, model).toString().trim){
+    @CROMGenerator.getAttributes(roleType).map(AttributeTemplate(_).toString())
+    @CROMGenerator.getOperations(roleType).map(OperationTemplate(_).toString())
+}

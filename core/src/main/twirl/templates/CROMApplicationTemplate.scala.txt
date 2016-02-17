@@ -3,7 +3,10 @@
 @import generator.CROMGenerator
 @import crom_l1_composed.Model
 
+import scroll.internal.Compartment
+
 object CROMApplication extends App {
     @generator.CROMGenerator.getDataTypes(model).map(d => DataTypeTemplate(d, model).toString())
     @generator.CROMGenerator.getNaturalTypes(model).map(n => NaturalTypeTemplate(n, model).toString())
+    @generator.CROMGenerator.getCompartmentTypes(model).map(n => CompartmentTypeTemplate(n, model).toString())
 }

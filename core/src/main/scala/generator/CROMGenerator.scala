@@ -7,6 +7,32 @@ import scala.collection.JavaConversions._
 import scalariform.formatter.ScalaFormatter
 
 object CROMGenerator {
+
+  def getRoles(comp: CompartmentType): Traversable[RoleType] = {
+    comp.getParts.toList.map(_.getRole).flatMap {
+      case rt: RoleType => List(rt)
+      case rg: RoleGroup => getRoles(rg)
+    }
+  }
+
+  def getRoles(rg: RoleGroup): Traversable[RoleType] = {
+    rg.getElements.toList.flatMap {
+      case rt: RoleType => List(rt)
+      case rg: RoleGroup => getRoles(rg)
+      case ref: AbstractRoleRef => getRoles(ref)
+    }
+  }
+
+  def getRoles(comp: AbstractRoleRef): Traversable[RoleType] = {
+    comp.getRef match {
+      case rt: RoleType => List(rt)
+      case rg: RoleGroup => getRoles(rg)
+    }
+  }
+
+  def getCompartmentTypes(model: Model): Traversable[CompartmentType] =
+    model.getElements.iterator().toList.filter(_.isInstanceOf[CompartmentType]).map(_.asInstanceOf[CompartmentType])
+
   def getInheritances(model: Model): Traversable[Inheritance] =
     model.getRelations.iterator().toList.filter(_.isInstanceOf[Inheritance]).map(_.asInstanceOf[Inheritance])
 
