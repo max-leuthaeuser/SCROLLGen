@@ -4,6 +4,6 @@
 @import crom_l1_composed.Model
 
 object CROMApplication extends App {
-    @generator.CROMGenerator.getDataTypes(model).map(DataTypeTemplate(_).toString())
-    @generator.CROMGenerator.getNaturalTypes(model).map(NaturalTypeTemplate(_).toString())
+    @generator.CROMGenerator.getDataTypes(model).map(d => DataTypeTemplate(d, model).toString())
+    @generator.CROMGenerator.getNaturalTypes(model).map(n => NaturalTypeTemplate(n, model).toString())
 }

@@ -3,6 +3,6 @@
 @import generator.CROMGenerator
 @import crom_l1_composed.Operation
 
-def @(operation.getName)@(CROMGenerator.getParameters(operation)): @(CROMGenerator.getType(operation)) = {
-    @(operation.getOperation)
+def @(operation.getName)@(CROMGenerator.getParameters(operation).map(ParameterTemplate(_).toString().trim).mkString("(",",",")")): @(TypeTemplate(operation.getType).toString()) = {
+    @OperationBodyTemplate(operation.getOperation).toString().trim
 }

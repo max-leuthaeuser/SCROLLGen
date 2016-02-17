@@ -1,3 +1,5 @@
+import crom_l1_composed.NaturalInheritance
+import generator.CROMGenerator
 import importer.CROMImporter
 import org.scalatest.{FeatureSpec, GivenWhenThen, Matchers}
 
@@ -12,6 +14,7 @@ class ECoreImporterTest extends FeatureSpec with GivenWhenThen with Matchers {
 
     Then("it should be loaded correctly")
     val elems = model.getElements.iterator()
+
     while (elems.hasNext) {
       val e = elems.next
       println(e.getName)

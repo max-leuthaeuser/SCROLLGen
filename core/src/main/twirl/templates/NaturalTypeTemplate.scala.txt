@@ -1,9 +1,10 @@
-@(naturalType: crom_l1_composed.NaturalType)
+@(naturalType: crom_l1_composed.NaturalType, model: crom_l1_composed.Model)
 
 @import generator.CROMGenerator
+@import crom_l1_composed.Model
 @import crom_l1_composed.NaturalType
 
-class @(naturalType.getName) @(generator.CROMGenerator.getExtends(naturalType)){
+class @(naturalType.getName) @(ExtendsTemplate(naturalType, model).toString().trim){
     @CROMGenerator.getAttributes(naturalType).map(AttributeTemplate(_).toString())
     @CROMGenerator.getOperations(naturalType).map(OperationTemplate(_).toString())
 }

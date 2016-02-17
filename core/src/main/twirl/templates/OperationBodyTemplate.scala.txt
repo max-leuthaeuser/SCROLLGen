@@ -1,0 +1,8 @@
+@(body: String)
+
+@if(body == null || body.isEmpty) {
+    // TODO: auto-generated method-stub. Implement!
+    ???
+} else {
+    body
+}

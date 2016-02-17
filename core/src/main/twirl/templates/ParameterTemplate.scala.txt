@@ -1,0 +1,6 @@
+@(param: crom_l1_composed.Parameter)
+
+@import generator.CROMGenerator
+@import crom_l1_composed.Parameter
+
+@(param.getName):@(TypeTemplate(param.getType).toString())

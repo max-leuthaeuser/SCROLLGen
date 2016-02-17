@@ -7,23 +7,11 @@ import scala.collection.JavaConversions._
 import scalariform.formatter.ScalaFormatter
 
 object CROMGenerator {
-  def getExtends(dt: DataType): String = dt.getTr_extends match {
-    case d: DataType => "extends " + d.getName
-    case null => ""
-  }
+  def getInheritances(model: Model): Traversable[Inheritance] =
+    model.getRelations.iterator().toList.filter(_.isInstanceOf[Inheritance]).map(_.asInstanceOf[Inheritance])
 
-  def getExtends(nt: NaturalType): String = nt.getTr_extends match {
-    case d: NaturalType => "extends " + d.getName
-    case null => ""
-  }
-
-  def getType(elem: TypedElement): String = elem.getType match {
-    case t: NamedElement => t.getName
-    case null => "Unit"
-  }
-
-  def getParameters(elem: Operation): String =
-    elem.getParams.iterator().toList.map(p => p.getName + ": " + getType(p)).mkString("(", ",", ")")
+  def getParameters(elem: Operation): Traversable[Parameter] =
+    elem.getParams.iterator().toList
 
   def getDataTypes(model: Model): Traversable[DataType] =
     model.getElements.iterator().toList.filter(_.isInstanceOf[DataType]).map(_.asInstanceOf[DataType])

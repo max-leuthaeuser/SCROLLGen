@@ -3,4 +3,4 @@
 @import generator.CROMGenerator
 @import crom_l1_composed.Attribute
 
-var @(attribute.getName): @(CROMGenerator.getType(attribute)) = _
+var @(attribute.getName): @(TypeTemplate(attribute.getType).toString()) = _

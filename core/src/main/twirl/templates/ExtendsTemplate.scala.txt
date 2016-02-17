@@ -1,0 +1,23 @@
+@(elem: crom_l1_composed.NamedElement, model: crom_l1_composed.Model)
+
+@import generator.CROMGenerator
+@import crom_l1_composed.Model
+@import crom_l1_composed.NamedElement
+@import crom_l1_composed.NaturalInheritance
+@import crom_l1_composed.DataInheritance
+@import crom_l1_composed.RoleInheritance
+@import crom_l1_composed.CompartmentInheritance
+
+@(CROMGenerator.getInheritances(model).find {
+    case n: NaturalInheritance => n.getSub().getName == elem.getName
+    case n: DataInheritance => n.getSub().getName == elem.getName
+    case n: RoleInheritance => n.getSub().getName == elem.getName
+    case n: CompartmentInheritance => n.getSub().getName == elem.getName
+    case _ => false
+}) match {
+    case Some(n : NaturalInheritance) => { extends @n.getSuper().getName }
+    case Some(n : DataInheritance) => { extends @n.getSuper().getName }
+    case Some(n : RoleInheritance) => { extends @n.getSuper().getName }
+    case Some(n : CompartmentInheritance) => { extends @n.getSuper().getName }
+    case _ => { }
+}
