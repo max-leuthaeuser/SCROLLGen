@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.{EObject, EPackage}
   */
 trait ECoreImporter[E <: EObject] {
   var path: String = _
-  var extention: String = _
+  var extension: String = _
   var packageInstance: EPackage = _
 
   /**
@@ -22,8 +22,8 @@ trait ECoreImporter[E <: EObject] {
     * @return the imported model
     */
   def loadModel(): E = {
-    require(null != path && path.nonEmpty)
-    require(null != extention && extention.nonEmpty)
+    require(null != path && path.nonEmpty, "Invalid model path!")
+    require(null != extension && extension.nonEmpty, "Invalid model file extension!")
     require(null != packageInstance)
 
     // Initialize the model
@@ -32,7 +32,7 @@ trait ECoreImporter[E <: EObject] {
     // Register the XMI resource factory for the .website extension
     val reg = Resource.Factory.Registry.INSTANCE
     val m = reg.getExtensionToFactoryMap
-    m.put(extention, new XMIResourceFactoryImpl())
+    m.put(extension, new XMIResourceFactoryImpl())
     // Obtain a new resource set
     val resSet = new ResourceSetImpl()
     // Get the resource

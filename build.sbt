@@ -35,7 +35,19 @@ lazy val core = (project in file("core")).
   settings(commonSettings: _*).
   settings(Twirl.settings: _*).
   settings(
-    name := "SCROLLGen"
+    name := "SCROLLGen",
+    assemblyMergeStrategy in assembly := {
+      case "plugin.properties" => MergeStrategy.last
+      case "plugin.xml" => MergeStrategy.last
+      case "schema/dynamic_package.exsd" => MergeStrategy.last
+      case "schema/generated_package.exsd" => MergeStrategy.last
+      case x =>
+        val oldStrategy = (assemblyMergeStrategy in assembly).value
+        oldStrategy(x)
+    },
+    mainClass in compile := Some("SCROLLGen"),
+    mainClass in assembly := Some("SCROLLGen"),
+    assemblyJarName in assembly := "SCROLLGen.jar"
   )
 
 lazy val tests = (project in file("tests")).
