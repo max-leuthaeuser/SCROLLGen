@@ -2,7 +2,7 @@ SCROLLGen
 =========
 Code generation from CROM models to the *SCala ROLes Language*.
 
-*Usage:*
+**Usage:**
 
 ```
 java -jar SCROLLGen.jar --in <file> --out <file>
@@ -15,3 +15,13 @@ java -jar SCROLLGen.jar --in <file> --out <file>
 ```
 
 To get the jar run ```sbt assembly``` which stores it in ```core/target/scala-2.11/```.
+
+**Supported features (correct generation of):**
+* Data-Types
+* Natural-Types
+* Role-Types
+* Compartment-Types
+* Fulfillments
+* Relationsships
+* Role-Constraints (Riehle)
+* Role-Groups
