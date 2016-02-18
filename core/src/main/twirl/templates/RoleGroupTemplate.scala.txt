@@ -1,0 +1,8 @@
+@(rg: crom_l1_composed.RoleGroup)
+
+@import generator.CROMGenerator
+@import crom_l1_composed.RoleGroup
+
+@const(group: RoleGroup) = { @defining(CROMGenerator.getLimitAndOcc(group)) { c => (@(c._1), @(c._2))(@(c._3), @(c._4)) } }
+
+RoleGroup("@rg.getName").containing@(CROMGenerator.getRoles(rg).map(_.getName).mkString("[",",","]"))@const(rg)

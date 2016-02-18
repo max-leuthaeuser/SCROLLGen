@@ -8,48 +8,120 @@ import scalariform.formatter.ScalaFormatter
 
 object CROMGenerator {
 
-  def getRoles(comp: CompartmentType): Traversable[RoleType] = {
-    comp.getParts.toList.map(_.getRole).flatMap {
-      case rt: RoleType => List(rt)
-      case rg: RoleGroup => getRoles(rg)
-    }
+  def getFulfillments(comp: CompartmentType, model: Model): Traversable[Fulfillment] = {
+    val roles = getRoles(comp)
+    getFulfillments(model).filter(f => f.getFilled.isInstanceOf[RoleType] && roles.exists(r => r.getName == getName(f.getFilled)))
   }
 
-  def getRoles(rg: RoleGroup): Traversable[RoleType] = {
-    rg.getElements.toList.flatMap {
-      case rt: RoleType => List(rt)
-      case rg: RoleGroup => getRoles(rg)
-      case ref: AbstractRoleRef => getRoles(ref)
+  def getFulfillments(model: Model): Traversable[Fulfillment] =
+    model.getRelations.filter(_.isInstanceOf[Fulfillment]).map(_.asInstanceOf[Fulfillment])
+
+  def placeToString(place: Place): String =
+    if (place == null) {
+      "*"
     }
+    else {
+      (place.getLower, place.getUpper) match {
+        case (-1, -1) => "0 To *"
+        case (l, -1) => l + " To *"
+        case (l, u) if l == u => l.toString
+        case (l, u) => l + " To " + u
+      }
+    }
+
+  def getIncoming(t: RelationTarget): Traversable[Relationship] =
+    t.getIncoming.filter(_.isInstanceOf[Relationship]).map(_.asInstanceOf[Relationship])
+
+  def getOutgoing(t: RelationTarget): Traversable[Relationship] =
+    t.getOutgoing.filter(_.isInstanceOf[Relationship]).map(_.asInstanceOf[Relationship])
+
+  def getRelationships(t: RelationTarget, model: Model): Traversable[(NamedElement, NamedElement, Relationship)] =
+    getOutgoing(t).flatMap(r => getCompartmentTypes(model).flatMap(getRelationshipTargets(_, model)).filter(getIncoming(_).toList.contains(r)).map((t, _, r)))
+
+  def getRelationshipTargets(comp: CompartmentType, model: Model): Traversable[RelationTarget] =
+    getRoles(comp) ++ getNaturalTypes(model) ++ getDataTypes(model)
+
+  def getName(ar: AbstractRole): String = ar match {
+    case r: RoleGroup => ???
+    case r: RoleType => r.getName
   }
 
-  def getRoles(comp: AbstractRoleRef): Traversable[RoleType] = {
-    comp.getRef match {
-      case rt: RoleType => List(rt)
-      case rg: RoleGroup => getRoles(rg)
+  def getRoleConstraints(comp: CompartmentType): Traversable[Constraint] = comp.getConstraints.filter {
+    case c: RoleEquivalence => true
+    case c: RoleImplication => true
+    case c: RoleProhibition => true
+    case _ => false
+  }.filter {
+    case c: RoleConstraint if c.getFirst.isInstanceOf[RoleGroup] || c.getSecond.isInstanceOf[RoleGroup] => false
+    case _ => true
+  }
+
+  def getLimitAndOcc(rg: RoleGroup): (String, String, String, String) = {
+    def upperToString(c: Int) = c match {
+      case -1 => "*"
+      case i: Int => i.toString
     }
+
+    def lowerToString(c: Int) = c match {
+      case -1 => "0"
+      case i: Int => i.toString
+    }
+
+    val roles = getRoles(rg).size.toString
+    val limit = (lowerToString(rg.getLower), upperToString(rg.getUpper))
+    val occ = (roles, roles)
+    (limit._1, limit._2, occ._1, occ._2)
+  }
+
+  def getRoleGroups(comp: CompartmentType): Traversable[RoleGroup] = comp.getParts.map(_.getRole).flatMap {
+    case rt: RoleType => List.empty
+    case rg: RoleGroup => List(rg) ++ getRoleGroups(rg)
+  }
+
+  def getRoleGroups(rg: RoleGroup): Traversable[RoleGroup] = rg.getElements.flatMap {
+    case rg: RoleGroup => List(rg) ++ getRoleGroups(rg)
+    case rf: AbstractRoleRef => getRoleGroups(rf)
+    case _ => List.empty
+  }
+
+  def getRoleGroups(rf: AbstractRoleRef): Traversable[RoleGroup] = rf.getRef match {
+    case rg: RoleGroup => List(rg) ++ getRoleGroups(rg)
+    case _ => List.empty
+  }
+
+  def getRoles(comp: CompartmentType): Traversable[RoleType] = comp.getParts.map(_.getRole).flatMap {
+    case rt: RoleType => List(rt)
+    case rg: RoleGroup => getRoles(rg)
+  }
+
+  def getRoles(rg: RoleGroup): Traversable[RoleType] = rg.getElements.flatMap {
+    case rt: RoleType => List(rt)
+    case rg: RoleGroup => getRoles(rg)
+    case ref: AbstractRoleRef => getRoles(ref)
+  }
+
+  def getRoles(rf: AbstractRoleRef): Traversable[RoleType] = rf.getRef match {
+    case rt: RoleType => List(rt)
+    case rg: RoleGroup => getRoles(rg)
   }
 
   def getCompartmentTypes(model: Model): Traversable[CompartmentType] =
-    model.getElements.iterator().toList.filter(_.isInstanceOf[CompartmentType]).map(_.asInstanceOf[CompartmentType])
+    model.getElements.filter(_.isInstanceOf[CompartmentType]).map(_.asInstanceOf[CompartmentType])
 
   def getInheritances(model: Model): Traversable[Inheritance] =
-    model.getRelations.iterator().toList.filter(_.isInstanceOf[Inheritance]).map(_.asInstanceOf[Inheritance])
+    model.getRelations.filter(_.isInstanceOf[Inheritance]).map(_.asInstanceOf[Inheritance])
 
-  def getParameters(elem: Operation): Traversable[Parameter] =
-    elem.getParams.iterator().toList
+  def getParameters(elem: Operation): Traversable[Parameter] = elem.getParams
 
   def getDataTypes(model: Model): Traversable[DataType] =
-    model.getElements.iterator().toList.filter(_.isInstanceOf[DataType]).map(_.asInstanceOf[DataType])
+    model.getElements.filter(_.isInstanceOf[DataType]).map(_.asInstanceOf[DataType])
 
   def getNaturalTypes(model: Model): Traversable[NaturalType] =
-    model.getElements.iterator().toList.filter(_.isInstanceOf[NaturalType]).map(_.asInstanceOf[NaturalType])
+    model.getElements.filter(_.isInstanceOf[NaturalType]).map(_.asInstanceOf[NaturalType])
 
-  def getAttributes(model: Type): Traversable[Attribute] =
-    model.getAttributes.iterator().toList
+  def getAttributes(model: Type): Traversable[Attribute] = model.getAttributes
 
-  def getOperations(model: Type): Traversable[Operation] =
-    model.getOperations.iterator().toList
+  def getOperations(model: Type): Traversable[Operation] = model.getOperations
 }
 
 class CROMGenerator extends Generator[Model] {

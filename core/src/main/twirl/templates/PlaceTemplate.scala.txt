@@ -1,0 +1,5 @@
+@(place: crom_l1_composed.Place)
+
+@import generator.CROMGenerator
+
+@CROMGenerator.placeToString(place)

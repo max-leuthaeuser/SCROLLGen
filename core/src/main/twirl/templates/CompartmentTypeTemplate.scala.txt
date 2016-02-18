@@ -5,8 +5,13 @@
 @import crom_l1_composed.CompartmentType
 
 class @(compartmentType.getName) @(CompartmentExtendsTemplate(compartmentType, model).toString().trim){
+    import Relationship._
+
     @CROMGenerator.getAttributes(compartmentType).map(AttributeTemplate(_).toString())
     @CROMGenerator.getOperations(compartmentType).map(OperationTemplate(_).toString())
     @CROMGenerator.getRoles(compartmentType).map(rt => RoleTypeTemplate(rt, model).toString())
-    // TODO: relationships, role-groups, role-restrictions, role-constraints
+    @CROMGenerator.getRoleGroups(compartmentType).map(RoleGroupTemplate(_).toString())
+    @CROMGenerator.getRoleConstraints(compartmentType).map(RoleConstraintTemplate(_).toString())
+    @CROMGenerator.getRelationshipTargets(compartmentType, model).flatMap(t => CROMGenerator.getRelationships(t, model).map(RelationshipTemplate(_).toString()))
+    @CROMGenerator.getFulfillments(compartmentType, model).map(FulfillmentTemplate(_).toString())
 }

@@ -1,4 +1,3 @@
-import crom_l1_composed.NaturalInheritance
 import generator.CROMGenerator
 import importer.CROMImporter
 import org.scalatest.{FeatureSpec, GivenWhenThen, Matchers}

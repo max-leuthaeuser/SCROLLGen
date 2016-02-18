@@ -1,0 +1,7 @@
+@(rel: (crom_l1_composed.NamedElement, crom_l1_composed.NamedElement, crom_l1_composed.Relationship))
+
+@import generator.CROMGenerator
+@import crom_l1_composed.Relationship
+@import crom_l1_composed.NamedElement
+
+val @(rel._3.getName) = Relationship("@(rel._3.getName)").from[@(rel._1.getName)](@CROMGenerator.placeToString(rel._3.getFirst)).to[@(rel._2.getName)](@CROMGenerator.placeToString(rel._3.getFirst))
