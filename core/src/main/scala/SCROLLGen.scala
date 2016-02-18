@@ -34,7 +34,7 @@ object SCROLLGen extends App {
     case Array("--out", out: String) => outFilePath = new File(out).exists() match {
       case true if out.endsWith("/") => out + "CROMApplication.scala"
       case true => out + "/CROMApplication.scala"
-      case _ => "This out path does not exist: " + out
+      case _ => println("This out path does not exist: " + out); System.exit(1); ""
     }
   }
 
