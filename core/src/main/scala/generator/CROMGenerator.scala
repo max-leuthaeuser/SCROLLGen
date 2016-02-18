@@ -14,7 +14,15 @@ object CROMGenerator {
   }
 
   def getFulfillments(model: Model): Traversable[Fulfillment] =
-    model.getRelations.filter(_.isInstanceOf[Fulfillment]).map(_.asInstanceOf[Fulfillment])
+    model.getRelations.filter(_.isInstanceOf[Fulfillment]).map(_.asInstanceOf[Fulfillment]).flatMap {
+      case f: Fulfillment if f.getFilled.isInstanceOf[RoleGroup] => getRoles(f.getFilled.asInstanceOf[RoleGroup]).map(r => {
+        val newFul = Crom_l1_composedFactory.eINSTANCE.createFulfillment()
+        newFul.setFiller(f.getFiller)
+        newFul.setFilled(r)
+        newFul
+      })
+      case f: Fulfillment => List(f)
+    }
 
   def placeToString(place: Place): String =
     if (place == null) {
@@ -46,14 +54,15 @@ object CROMGenerator {
     case r: RoleType => r.getName
   }
 
-  def getRoleConstraints(comp: CompartmentType): Traversable[Constraint] = comp.getConstraints.filter {
+  def getRoleConstraints(comp: CompartmentType): Traversable[(Constraint, String, String)] = comp.getConstraints.filter {
     case c: RoleEquivalence => true
     case c: RoleImplication => true
     case c: RoleProhibition => true
     case _ => false
-  }.filter {
-    case c: RoleConstraint if c.getFirst.isInstanceOf[RoleGroup] || c.getSecond.isInstanceOf[RoleGroup] => false
-    case _ => true
+  }.map(_.asInstanceOf[RoleConstraint]).flatMap {
+    case c if c.getFirst.isInstanceOf[RoleType] && c.getSecond.isInstanceOf[RoleType] => List((c, getName(c.getFirst), getName(c.getSecond)))
+    case c if c.getFirst.isInstanceOf[RoleType] && c.getSecond.isInstanceOf[RoleGroup] => getRoles(c.getSecond.asInstanceOf[RoleGroup]).flatMap(r => List((c, getName(c.getFirst), r.getName)))
+    case c if c.getFirst.isInstanceOf[RoleGroup] && c.getSecond.isInstanceOf[RoleType] => getRoles(c.getFirst.asInstanceOf[RoleGroup]).flatMap(r => List((c, r.getName, getName(c.getSecond))))
   }
 
   def getLimitAndOcc(rg: RoleGroup): (String, String, String, String) = {

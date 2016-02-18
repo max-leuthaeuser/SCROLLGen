@@ -1,4 +1,4 @@
-@(const: crom_l1_composed.Constraint)
+@(const: (crom_l1_composed.Constraint, String, String))
 
 @import generator.CROMGenerator
 @import crom_l1_composed.Constraint
@@ -6,8 +6,8 @@
 @import crom_l1_composed.RoleImplication
 @import crom_l1_composed.RoleProhibition
 
-@const match {
-    case c: RoleEquivalence => { RoleEquivalence[@(CROMGenerator.getName(c.getFirst)), @(CROMGenerator.getName(c.getSecond))]() }
-    case c: RoleImplication => { RoleImplication[@(CROMGenerator.getName(c.getFirst)), @(CROMGenerator.getName(c.getSecond))]() }
-    case c: RoleProhibition => { RoleProhibition[@(CROMGenerator.getName(c.getFirst)), @(CROMGenerator.getName(c.getSecond))]() }
+@const._1 match {
+    case c: RoleEquivalence => { RoleEquivalence[@const._2, @const._3]() }
+    case c: RoleImplication => { RoleImplication[@const._2, @const._3]() }
+    case c: RoleProhibition => { RoleProhibition[@const._2, @const._3]() }
 }
