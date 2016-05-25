@@ -1,6 +1,4 @@
 @(attribute: crom_l1_composed.Attribute, caseClass: Boolean)
-
 @import generator.CROMGenerator
 @import crom_l1_composed.Attribute
-
-@if(caseClass) {val} else {var} @(attribute.getName): @(TypeTemplate(attribute.getType).toString()) = ???
+@if(!caseClass) {var} @(attribute.getName): @(TypeTemplate(attribute.getType).toString()) @if(!caseClass) {= ???}
