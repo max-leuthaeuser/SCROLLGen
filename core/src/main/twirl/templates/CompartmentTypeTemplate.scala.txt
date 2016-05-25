@@ -1,15 +1,15 @@
-@(compartmentType: crom_l1_composed.CompartmentType, model: crom_l1_composed.Model)
+@(compartmentType: crom_l1_composed.CompartmentType, model: crom_l1_composed.Model, caseClass: Boolean)
 
 @import generator.CROMGenerator
 @import crom_l1_composed.Model
 @import crom_l1_composed.CompartmentType
 
-class @(compartmentType.getName) @(CompartmentExtendsTemplate(compartmentType, model).toString().trim){
+@if(caseClass) {case} class @(compartmentType.getName)@if(caseClass) {@Html("()")} @(CompartmentExtendsTemplate(compartmentType, model).toString().trim){
     import Relationship._
 
-    @CROMGenerator.getAttributes(compartmentType).map(AttributeTemplate(_).toString())
+    @CROMGenerator.getAttributes(compartmentType).map(a => AttributeTemplate(a, caseClass).toString())
     @CROMGenerator.getOperations(compartmentType).map(OperationTemplate(_).toString())
-    @CROMGenerator.getRoles(compartmentType).map(rt => RoleTypeTemplate(rt, model).toString())
+    @CROMGenerator.getRoles(compartmentType).map(rt => RoleTypeTemplate(rt, model, caseClass).toString())
     @CROMGenerator.getRoleGroups(compartmentType).map(RoleGroupTemplate(_).toString())
     @CROMGenerator.getRoleConstraints(compartmentType).map(RoleConstraintTemplate(_).toString())
     @CROMGenerator.getRelationshipTargets(compartmentType, model).flatMap(t => CROMGenerator.getRelationships(t, model).map(RelationshipTemplate(_).toString()))

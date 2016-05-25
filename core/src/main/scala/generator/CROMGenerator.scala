@@ -162,6 +162,6 @@ object CROMGenerator {
   def getOperations(model: Type): Traversable[Operation] = model.getOperations
 }
 
-class CROMGenerator extends Generator[Model] {
-  override def generate(model: Model): String = ScalaFormatter.format(CROMApplicationTemplate(model).toString().trim)
+class CROMGenerator(caseClass: Boolean) extends Generator[Model] {
+  override def generate(model: Model): String = ScalaFormatter.format(CROMApplicationTemplate(model, caseClass).toString().trim)
 }

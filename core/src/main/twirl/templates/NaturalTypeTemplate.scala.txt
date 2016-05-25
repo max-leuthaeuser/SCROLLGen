@@ -1,10 +1,10 @@
-@(naturalType: crom_l1_composed.NaturalType, model: crom_l1_composed.Model)
+@(naturalType: crom_l1_composed.NaturalType, model: crom_l1_composed.Model, caseClass: Boolean)
 
 @import generator.CROMGenerator
 @import crom_l1_composed.Model
 @import crom_l1_composed.NaturalType
 
-class @(naturalType.getName) @(ExtendsTemplate(naturalType, model).toString().trim){
-    @CROMGenerator.getAttributes(naturalType).map(AttributeTemplate(_).toString())
+@if(caseClass) {case} class @(naturalType.getName)@if(caseClass) {@Html("()")} @(ExtendsTemplate(naturalType, model).toString().trim){
+    @CROMGenerator.getAttributes(naturalType).map(a => AttributeTemplate(a, caseClass).toString())
     @CROMGenerator.getOperations(naturalType).map(OperationTemplate(_).toString())
 }

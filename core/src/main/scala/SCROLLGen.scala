@@ -11,23 +11,27 @@ object SCROLLGen extends App {
     println(
       """
         | SCROLLGen
-        | Usage: java -jar SCROLLGen.jar --in <file> --out <file>
+        | Usage: java -jar SCROLLGen.jar --in <file> --out <path>
         |
         | --in <file>
         |   The .ecore model that should be used for code generation
         |
         | --out <folder-path>
         |   The path to the folder where the generated .scala file should be located at
+        |
+        | --caseClass [true/false]
+        |   Set this to true if you want all natural, player, role and compartment  classes generated as case classes (default: false)
       """.stripMargin)
   }
 
-  if (args.isEmpty || args.head.contains("help") || args.length != 4) {
+  if (args.isEmpty || args.head.contains("help") || args.length < 4 || args.length > 6) {
     printHelp()
     System.exit(0)
   }
 
   var modelFilePath = ""
   var outFilePath = ""
+  var caseClass = false
 
   args.sliding(2, 1).toList.collect {
     case Array("--in", in: String) => modelFilePath = in
@@ -36,9 +40,19 @@ object SCROLLGen extends App {
       case true => out + "/CROMApplication.scala"
       case _ => println("This out path does not exist: " + out); System.exit(1); ""
     }
+    case Array("--caseClass", cc: String) => caseClass = cc match {
+      case "true" => true
+      case "false" => false
+    }
+
   }
 
-  println(s"Generating from ecore model '$modelFilePath' to SCROLL code '$outFilePath' ...")
-  println(" => that took " + writeToFile(outFilePath, new CROMGenerator().generate(new CROMImporter(modelFilePath).loadModel())).elapsed() + "ms")
+  val withCaseClasses = caseClass match {
+    case true => " with case classes"
+    case false => ""
+  }
+
+  println(s"Generating from ecore model '$modelFilePath' to SCROLL code '$outFilePath'$withCaseClasses ...")
+  println(" => that took " + writeToFile(outFilePath, new CROMGenerator(caseClass).generate(new CROMImporter(modelFilePath).loadModel())).elapsed() + "ms")
   println("... finished.")
 }

@@ -1,4 +1,4 @@
-@(model: crom_l1_composed.Model)
+@(model: crom_l1_composed.Model, caseClass: Boolean)
 
 @import generator.CROMGenerator
 @import crom_l1_composed.Model
@@ -10,7 +10,7 @@ import scroll.internal.Compartment
 import scroll.internal.util.Many._
 
 object CROMApplication extends App {
-    @generator.CROMGenerator.getDataTypes(model).map(d => DataTypeTemplate(d, model).toString())
-    @generator.CROMGenerator.getNaturalTypes(model).map(n => NaturalTypeTemplate(n, model).toString())
-    @generator.CROMGenerator.getCompartmentTypes(model).map(n => CompartmentTypeTemplate(n, model).toString())
+    @generator.CROMGenerator.getDataTypes(model).map(d => DataTypeTemplate(d, model, caseClass).toString())
+    @generator.CROMGenerator.getNaturalTypes(model).map(n => NaturalTypeTemplate(n, model, caseClass).toString())
+    @generator.CROMGenerator.getCompartmentTypes(model).map(n => CompartmentTypeTemplate(n, model, caseClass).toString())
 }

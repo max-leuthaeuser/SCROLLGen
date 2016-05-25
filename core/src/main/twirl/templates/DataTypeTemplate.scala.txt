@@ -1,10 +1,10 @@
-@(dataType: crom_l1_composed.DataType, model: crom_l1_composed.Model)
+@(dataType: crom_l1_composed.DataType, model: crom_l1_composed.Model, caseClass: Boolean)
 
 @import generator.CROMGenerator
 @import crom_l1_composed.Model
 @import crom_l1_composed.DataType
 
-class @(dataType.getName) @(ExtendsTemplate(dataType, model).toString().trim){
-    @CROMGenerator.getAttributes(dataType).map(AttributeTemplate(_).toString())
+@if(caseClass) {case} class @(dataType.getName)@if(caseClass) {@Html("()")} @(ExtendsTemplate(dataType, model).toString().trim){
+    @CROMGenerator.getAttributes(dataType).map(a => AttributeTemplate(a, caseClass).toString())
     @CROMGenerator.getOperations(dataType).map(OperationTemplate(_).toString())
 }
