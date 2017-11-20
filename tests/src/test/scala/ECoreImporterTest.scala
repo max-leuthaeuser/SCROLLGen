@@ -1,4 +1,4 @@
-import generator.CROMGenerator
+import collection.JavaConverters._
 import importer.CROMImporter
 import org.scalatest.{FeatureSpec, GivenWhenThen, Matchers}
 
@@ -12,12 +12,8 @@ class ECoreImporterTest extends FeatureSpec with GivenWhenThen with Matchers {
     val model = new CROMImporter(path).loadModel()
 
     Then("it should be loaded correctly")
-    val elems = model.getElements.iterator()
-
-    while (elems.hasNext) {
-      val e = elems.next
-      println(e.getName)
-    }
+    val expected = List("Money", "Person", "Company", "Bank", "Transaction", "Account", "Alien")
+    model.getElements.asScala.map(_.getName) shouldBe expected
   }
 
 }

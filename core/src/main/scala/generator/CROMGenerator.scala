@@ -1,9 +1,8 @@
 package generator
 
+import collection.JavaConverters._
 import crom_l1_composed._
 import templates.txt.CROMApplicationTemplate
-
-import scala.collection.JavaConversions._
 import scalariform.formatter.ScalaFormatter
 
 object CROMGenerator {
@@ -14,7 +13,7 @@ object CROMGenerator {
   }
 
   def getFulfillments(model: Model): Traversable[Fulfillment] =
-    model.getRelations.filter(_.isInstanceOf[Fulfillment]).map(_.asInstanceOf[Fulfillment]).flatMap {
+    model.getRelations.asScala.filter(_.isInstanceOf[Fulfillment]).map(_.asInstanceOf[Fulfillment]).flatMap {
       case f: Fulfillment if f.getFilled.isInstanceOf[RoleGroup] => getRoles(f.getFilled.asInstanceOf[RoleGroup]).map(r => {
         val newFul = Crom_l1_composedFactory.eINSTANCE.createFulfillment()
         newFul.setFiller(f.getFiller)
@@ -38,10 +37,10 @@ object CROMGenerator {
     }
 
   def getIncoming(t: RelationTarget): Traversable[Relationship] =
-    t.getIncoming.filter(_.isInstanceOf[Relationship]).map(_.asInstanceOf[Relationship])
+    t.getIncoming.asScala.filter(_.isInstanceOf[Relationship]).map(_.asInstanceOf[Relationship])
 
   def getOutgoing(t: RelationTarget): Traversable[Relationship] =
-    t.getOutgoing.filter(_.isInstanceOf[Relationship]).map(_.asInstanceOf[Relationship])
+    t.getOutgoing.asScala.filter(_.isInstanceOf[Relationship]).map(_.asInstanceOf[Relationship])
 
   def getRelationships(t: RelationTarget, model: Model): Traversable[(NamedElement, NamedElement, Relationship)] =
     getOutgoing(t).flatMap(r => getCompartmentTypes(model).flatMap(getRelationshipTargets(_, model)).filter(getIncoming(_).toList.contains(r)).map(tt => {
@@ -73,10 +72,10 @@ object CROMGenerator {
     case r: RoleType => r.getName
   }
 
-  def getRoleConstraints(comp: CompartmentType): Traversable[(Constraint, String, String)] = comp.getConstraints.filter {
-    case c: RoleEquivalence => true
-    case c: RoleImplication => true
-    case c: RoleProhibition => true
+  def getRoleConstraints(comp: CompartmentType): Traversable[(Constraint, String, String)] = comp.getConstraints.asScala.filter {
+    case _: RoleEquivalence => true
+    case _: RoleImplication => true
+    case _: RoleProhibition => true
     case _ => false
   }.map(_.asInstanceOf[RoleConstraint]).flatMap {
     case c if c.getFirst.isInstanceOf[RoleType] && c.getSecond.isInstanceOf[RoleType] => List((c, getName(c.getFirst), getName(c.getSecond)))
@@ -101,12 +100,12 @@ object CROMGenerator {
     (limit._1, limit._2, occ._1, occ._2)
   }
 
-  def getRoleGroups(comp: CompartmentType): Traversable[RoleGroup] = comp.getParts.map(_.getRole).flatMap {
-    case rt: RoleType => List.empty
+  def getRoleGroups(comp: CompartmentType): Traversable[RoleGroup] = comp.getParts.asScala.map(_.getRole).flatMap {
+    case _: RoleType => List.empty
     case rg: RoleGroup => List(rg) ++ getRoleGroups(rg)
   }
 
-  def getRoleGroups(rg: RoleGroup): Traversable[RoleGroup] = rg.getElements.flatMap {
+  def getRoleGroups(rg: RoleGroup): Traversable[RoleGroup] = rg.getElements.asScala.flatMap {
     case rg: RoleGroup => List(rg) ++ getRoleGroups(rg)
     case rf: AbstractRoleRef => getRoleGroups(rf)
     case _ => List.empty
@@ -117,12 +116,12 @@ object CROMGenerator {
     case _ => List.empty
   }
 
-  def getRoles(comp: CompartmentType): Traversable[RoleType] = comp.getParts.map(_.getRole).flatMap {
+  def getRoles(comp: CompartmentType): Traversable[RoleType] = comp.getParts.asScala.map(_.getRole).flatMap {
     case rt: RoleType => List(rt)
     case rg: RoleGroup => getRoles(rg)
   }
 
-  def getRoles(rg: RoleGroup): Traversable[RoleType] = rg.getElements.flatMap {
+  def getRoles(rg: RoleGroup): Traversable[RoleType] = rg.getElements.asScala.flatMap {
     case rt: RoleType => List(rt)
     case rg: RoleGroup => getRoles(rg)
     case ref: AbstractRoleRef => getRoles(ref)
@@ -134,12 +133,12 @@ object CROMGenerator {
   }
 
   def getCompartmentTypes(model: Model): Traversable[CompartmentType] =
-    model.getElements.filter(_.isInstanceOf[CompartmentType]).map(_.asInstanceOf[CompartmentType])
+    model.getElements.asScala.filter(_.isInstanceOf[CompartmentType]).map(_.asInstanceOf[CompartmentType])
 
   def getInheritances(model: Model): Traversable[Inheritance] =
-    model.getRelations.filter(_.isInstanceOf[Inheritance]).map(_.asInstanceOf[Inheritance])
+    model.getRelations.asScala.filter(_.isInstanceOf[Inheritance]).map(_.asInstanceOf[Inheritance])
 
-  def getParameters(elem: Operation): Traversable[Parameter] = elem.getParams.map(p => {
+  def getParameters(elem: Operation): Traversable[Parameter] = elem.getParams.asScala.map(p => {
     p.getType match {
       case null => println(s" => Warning: Parameter '${p.getName}' for operation '${elem.getName}' does not have a type specified! Setting it to 'Unit'."); p
       case _ => p
@@ -147,19 +146,19 @@ object CROMGenerator {
   })
 
   def getDataTypes(model: Model): Traversable[DataType] =
-    model.getElements.filter(_.isInstanceOf[DataType]).map(_.asInstanceOf[DataType])
+    model.getElements.asScala.filter(_.isInstanceOf[DataType]).map(_.asInstanceOf[DataType])
 
   def getNaturalTypes(model: Model): Traversable[NaturalType] =
-    model.getElements.filter(_.isInstanceOf[NaturalType]).map(_.asInstanceOf[NaturalType])
+    model.getElements.asScala.filter(_.isInstanceOf[NaturalType]).map(_.asInstanceOf[NaturalType])
 
-  def getAttributes(model: Type): Traversable[Attribute] = model.getAttributes.map(a => {
+  def getAttributes(model: Type): Traversable[Attribute] = model.getAttributes.asScala.map(a => {
     a.getType match {
       case null => println(s" => Warning: Attribute '${a.getName}' does not have a type specified! Setting it to 'Unit'."); a
       case _ => a
     }
   })
 
-  def getOperations(model: Type): Traversable[Operation] = model.getOperations
+  def getOperations(model: Type): Traversable[Operation] = model.getOperations.asScala
 }
 
 class CROMGenerator(caseClass: Boolean) extends Generator[Model] {

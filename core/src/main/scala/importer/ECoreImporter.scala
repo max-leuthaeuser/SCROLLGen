@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.{EObject, EPackage}
 
 /**
   * Trait providing functionality for importing ecore models.
-  * Remember to set the <code>path</code>, <code>extention</code> and <code>packageInstance</code> variable!
+  * Remember to set the <code>path</code>, <code>extension</code> and <code>packageInstance</code> variable!
   */
 trait ECoreImporter[E <: EObject] {
   var path: String = _

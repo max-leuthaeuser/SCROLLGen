@@ -20,7 +20,7 @@ object SCROLLGen extends App {
         |   The path to the folder where the generated .scala file should be located at
         |
         | --caseClass [true/false]
-        |   Set this to true if you want all natural, player, role and compartment  classes generated as case classes (default: false)
+        |   Set this to true if you want all natural, player, role and compartment classes generated as case classes (default: false)
       """.stripMargin)
   }
 
@@ -47,9 +47,10 @@ object SCROLLGen extends App {
 
   }
 
-  val withCaseClasses = caseClass match {
-    case true => " with case classes"
-    case false => ""
+  val withCaseClasses = if (caseClass) {
+    " with case classes"
+  } else {
+    ""
   }
 
   println(s"Generating from ecore model '$modelFilePath' to SCROLL code '$outFilePath'$withCaseClasses ...")
