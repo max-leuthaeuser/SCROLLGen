@@ -3,7 +3,9 @@ package generator
 import collection.JavaConverters._
 import crom_l1_composed._
 import templates.txt.CROMApplicationTemplate
+
 import scalariform.formatter.ScalaFormatter
+import scalariform.parser.ScalaParserException
 
 object CROMGenerator {
 
@@ -22,6 +24,8 @@ object CROMGenerator {
       })
       case f: Fulfillment => List(f)
     }
+
+  def fixGenerics(in: String): String = in.replaceAll("<", "[").replaceAll(">", "]")
 
   def placeToString(place: Place): String =
     if (place == null) {
@@ -162,5 +166,15 @@ object CROMGenerator {
 }
 
 class CROMGenerator(caseClass: Boolean) extends Generator[Model] {
-  override def generate(model: Model): String = ScalaFormatter.format(CROMApplicationTemplate(model, caseClass).toString().trim)
+  override def generate(model: Model): String = {
+    val result = CROMApplicationTemplate(model, caseClass).toString().trim
+    try {
+      ScalaFormatter.format(result)
+    } catch {
+      case err: ScalaParserException =>
+        println(s" => Error: Code formatting failed with '$err'!")
+        println(" => Warning: Printing non-formatted code.")
+        result
+    }
+  }
 }

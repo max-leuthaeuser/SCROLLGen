@@ -4,7 +4,7 @@
 @import crom_l1_composed.Model
 @import crom_l1_composed.DataType
 
-@if(caseClass) {case} class @(dataType.getName)@if(caseClass) {
+@if(caseClass) {case} class @(CROMGenerator.fixGenerics(dataType.getName))@if(caseClass) {
 @CROMGenerator.getAttributes(dataType).map(a => AttributeTemplate(a, caseClass)).mkString("(",",",")").filter(_ >= ' ')} @(ExtendsTemplate(dataType, model).toString().trim){
     @if(!caseClass) {
     @CROMGenerator.getAttributes(dataType).map(a => AttributeTemplate(a, caseClass).toString())

@@ -4,7 +4,7 @@
 @import crom_l1_composed.Model
 @import crom_l1_composed.RoleType
 
-@Html("@")Role @if(caseClass) {case} class @(roleType.getName)@if(caseClass) {
+@Html("@")Role @if(caseClass) {case} class @(CROMGenerator.fixGenerics(roleType.getName))@if(caseClass) {
 @CROMGenerator.getAttributes(roleType).map(a => AttributeTemplate(a, caseClass)).mkString("(",",",")").filter(_ >= ' ')} @(ExtendsTemplate(roleType, model).toString().trim){
     @if(!caseClass) {
     @CROMGenerator.getAttributes(roleType).map(a => AttributeTemplate(a, caseClass).toString())

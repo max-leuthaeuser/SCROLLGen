@@ -3,4 +3,4 @@
 @import generator.CROMGenerator
 @import crom_l1_composed.Type
 
-@if(t == null) {Unit} else {@t.getName}
+@if(t == null) {Unit} else {@(CROMGenerator.fixGenerics(t.getName))}

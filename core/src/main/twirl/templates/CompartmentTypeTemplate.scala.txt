@@ -4,7 +4,7 @@
 @import crom_l1_composed.Model
 @import crom_l1_composed.CompartmentType
 
-@if(caseClass) {case} class @(compartmentType.getName)@if(caseClass) {
+@if(caseClass) {case} class @(CROMGenerator.fixGenerics(compartmentType.getName))@if(caseClass) {
 @CROMGenerator.getAttributes(compartmentType).map(a => AttributeTemplate(a, caseClass)).mkString("(",",",")").filter(_ >= ' ')} @(CompartmentExtendsTemplate(compartmentType, model).toString().trim){
     import Relationship._
     @if(!caseClass) {

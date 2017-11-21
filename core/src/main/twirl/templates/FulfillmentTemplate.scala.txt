@@ -3,4 +3,4 @@
 @import generator.CROMGenerator
 @import crom_l1_composed.Fulfillment
 
-RoleRestriction[@full.getFiller.getName, @(CROMGenerator.getName(full.getFilled))]
+RoleRestriction[@(CROMGenerator.fixGenerics(full.getFiller.getName)), @(CROMGenerator.fixGenerics(CROMGenerator.getName(full.getFilled)))]
