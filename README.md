@@ -18,7 +18,7 @@ SCROLLGen
    Set this to true if you want all natural, player, role and compartment  classes generated as case classes (default: false)
 ```
 
-To get the jar run ```sbt core/assembly``` which stores it in ```core/target/scala-2.11/```.
+To get the jar run ```sbt core/assembly``` which stores it in ```core/target/scala-x.yz/```.
 
 **Supported features (correct generation of):**
 * Data-Types

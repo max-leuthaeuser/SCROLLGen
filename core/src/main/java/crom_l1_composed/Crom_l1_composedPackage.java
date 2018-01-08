@@ -965,13 +965,31 @@ public interface Crom_l1_composedPackage extends EPackage {
 	int COMPARTMENT_TYPE__TR_EXTENDS = RIGID_TYPE_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Contains</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPARTMENT_TYPE__CONTAINS = RIGID_TYPE_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Fulfillments</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPARTMENT_TYPE__FULFILLMENTS = RIGID_TYPE_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Compartment Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPARTMENT_TYPE_FEATURE_COUNT = RIGID_TYPE_FEATURE_COUNT + 4;
+	int COMPARTMENT_TYPE_FEATURE_COUNT = RIGID_TYPE_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of operations of the '<em>Compartment Type</em>' class.
@@ -3234,6 +3252,28 @@ public interface Crom_l1_composedPackage extends EPackage {
 	EReference getCompartmentType_Tr_extends();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link crom_l1_composed.CompartmentType#getContains <em>Contains</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Contains</em>'.
+	 * @see crom_l1_composed.CompartmentType#getContains()
+	 * @see #getCompartmentType()
+	 * @generated
+	 */
+	EReference getCompartmentType_Contains();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link crom_l1_composed.CompartmentType#getFulfillments <em>Fulfillments</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Fulfillments</em>'.
+	 * @see crom_l1_composed.CompartmentType#getFulfillments()
+	 * @see #getCompartmentType()
+	 * @generated
+	 */
+	EReference getCompartmentType_Fulfillments();
+
+	/**
 	 * Returns the meta object for class '{@link crom_l1_composed.AntiRigidType <em>Anti Rigid Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4296,6 +4336,22 @@ public interface Crom_l1_composedPackage extends EPackage {
 		 * @generated
 		 */
 		EReference COMPARTMENT_TYPE__TR_EXTENDS = eINSTANCE.getCompartmentType_Tr_extends();
+
+		/**
+		 * The meta object literal for the '<em><b>Contains</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPARTMENT_TYPE__CONTAINS = eINSTANCE.getCompartmentType_Contains();
+
+		/**
+		 * The meta object literal for the '<em><b>Fulfillments</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPARTMENT_TYPE__FULFILLMENTS = eINSTANCE.getCompartmentType_Fulfillments();
 
 		/**
 		 * The meta object literal for the '{@link crom_l1_composed.impl.AntiRigidTypeImpl <em>Anti Rigid Type</em>}' class.

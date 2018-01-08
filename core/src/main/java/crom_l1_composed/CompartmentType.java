@@ -11,13 +11,15 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.CompartmentType#getParts <em>Parts</em>}</li>
  *   <li>{@link crom_l1_composed.CompartmentType#getRelationships <em>Relationships</em>}</li>
  *   <li>{@link crom_l1_composed.CompartmentType#getConstraints <em>Constraints</em>}</li>
  *   <li>{@link crom_l1_composed.CompartmentType#getTr_extends <em>Tr extends</em>}</li>
+ *   <li>{@link crom_l1_composed.CompartmentType#getContains <em>Contains</em>}</li>
+ *   <li>{@link crom_l1_composed.CompartmentType#getFulfillments <em>Fulfillments</em>}</li>
  * </ul>
- * </p>
  *
  * @see crom_l1_composed.Crom_l1_composedPackage#getCompartmentType()
  * @model
@@ -99,5 +101,37 @@ public interface CompartmentType extends RigidType {
 	 * @generated
 	 */
 	void setTr_extends(CompartmentType value);
+
+	/**
+	 * Returns the value of the '<em><b>Contains</b></em>' containment reference list.
+	 * The list contents are of type {@link crom_l1_composed.CompartmentType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Contains</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Contains</em>' containment reference list.
+	 * @see crom_l1_composed.Crom_l1_composedPackage#getCompartmentType_Contains()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<CompartmentType> getContains();
+
+	/**
+	 * Returns the value of the '<em><b>Fulfillments</b></em>' containment reference list.
+	 * The list contents are of type {@link crom_l1_composed.Fulfillment}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Fulfillments</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Fulfillments</em>' containment reference list.
+	 * @see crom_l1_composed.Crom_l1_composedPackage#getCompartmentType_Fulfillments()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Fulfillment> getFulfillments();
 
 } // CompartmentType

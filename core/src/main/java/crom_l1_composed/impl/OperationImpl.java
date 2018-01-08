@@ -29,12 +29,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.impl.OperationImpl#getParams <em>Params</em>}</li>
  *   <li>{@link crom_l1_composed.impl.OperationImpl#getOperation <em>Operation</em>}</li>
  *   <li>{@link crom_l1_composed.impl.OperationImpl#getOwner <em>Owner</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

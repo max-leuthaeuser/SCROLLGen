@@ -30,12 +30,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.impl.GroupImpl#getName <em>Name</em>}</li>
  *   <li>{@link crom_l1_composed.impl.GroupImpl#getElements <em>Elements</em>}</li>
  *   <li>{@link crom_l1_composed.impl.GroupImpl#getRelations <em>Relations</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

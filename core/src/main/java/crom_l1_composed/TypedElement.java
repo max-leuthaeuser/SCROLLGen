@@ -10,10 +10,10 @@ package crom_l1_composed;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.TypedElement#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see crom_l1_composed.Crom_l1_composedPackage#getTypedElement()
  * @model abstract="true"

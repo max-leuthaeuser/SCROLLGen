@@ -11,10 +11,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.NamedElement#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see crom_l1_composed.Crom_l1_composedPackage#getNamedElement()
  * @model interface="true" abstract="true"

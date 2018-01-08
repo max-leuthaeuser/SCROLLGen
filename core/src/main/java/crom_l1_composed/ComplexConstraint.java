@@ -11,11 +11,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.ComplexConstraint#getTargets <em>Targets</em>}</li>
  *   <li>{@link crom_l1_composed.ComplexConstraint#getExpression <em>Expression</em>}</li>
  * </ul>
- * </p>
  *
  * @see crom_l1_composed.Crom_l1_composedPackage#getComplexConstraint()
  * @model

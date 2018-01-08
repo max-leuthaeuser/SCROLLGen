@@ -11,13 +11,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.Part#getWhole <em>Whole</em>}</li>
  *   <li>{@link crom_l1_composed.Part#getLower <em>Lower</em>}</li>
  *   <li>{@link crom_l1_composed.Part#getUpper <em>Upper</em>}</li>
  *   <li>{@link crom_l1_composed.Part#getRole <em>Role</em>}</li>
  * </ul>
- * </p>
  *
  * @see crom_l1_composed.Crom_l1_composedPackage#getPart()
  * @model

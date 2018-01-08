@@ -11,12 +11,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.Place#getLower <em>Lower</em>}</li>
  *   <li>{@link crom_l1_composed.Place#getUpper <em>Upper</em>}</li>
  *   <li>{@link crom_l1_composed.Place#getHolder <em>Holder</em>}</li>
  * </ul>
- * </p>
  *
  * @see crom_l1_composed.Crom_l1_composedPackage#getPlace()
  * @model

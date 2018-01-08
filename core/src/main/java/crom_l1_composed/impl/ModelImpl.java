@@ -27,11 +27,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.impl.ModelImpl#getElements <em>Elements</em>}</li>
  *   <li>{@link crom_l1_composed.impl.ModelImpl#getRelations <em>Relations</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

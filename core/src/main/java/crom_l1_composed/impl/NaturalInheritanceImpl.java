@@ -19,11 +19,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.impl.NaturalInheritanceImpl#getSuper <em>Super</em>}</li>
  *   <li>{@link crom_l1_composed.impl.NaturalInheritanceImpl#getSub <em>Sub</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

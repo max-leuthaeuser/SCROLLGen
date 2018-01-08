@@ -9,10 +9,8 @@ import scalariform.parser.ScalaParserException
 
 object CROMGenerator {
 
-  def getFulfillments(comp: CompartmentType, model: Model): Traversable[Fulfillment] = {
-    val roles = getRoles(comp)
-    getFulfillments(model).filter(f => f.getFilled.isInstanceOf[RoleType] && roles.exists(r => r.getName == getName(f.getFilled)))
-  }
+  def getFulfillments(comp: CompartmentType, model: Model): Traversable[Fulfillment] =
+    getFulfillments(model).filter(f => f.getFilled.isInstanceOf[RoleType] && getRoles(comp).exists(r => r.getName == getName(f.getFilled)))
 
   def getFulfillments(model: Model): Traversable[Fulfillment] =
     model.getRelations.asScala.filter(_.isInstanceOf[Fulfillment]).map(_.asInstanceOf[Fulfillment]).flatMap {
@@ -74,6 +72,7 @@ object CROMGenerator {
 
   def getName(ar: AbstractRole): String = ar match {
     case r: RoleType => r.getName
+    case _ => throw new RuntimeException(s"Could not get name for '$ar' (does not seem to be a 'RoleType')!")
   }
 
   def getRoleConstraints(comp: CompartmentType): Traversable[(Constraint, String, String)] = comp.getConstraints.asScala.filter {
@@ -99,9 +98,7 @@ object CROMGenerator {
     }
 
     val roles = getRoles(rg).size.toString
-    val limit = (lowerToString(rg.getLower), upperToString(rg.getUpper))
-    val occ = (roles, roles)
-    (limit._1, limit._2, occ._1, occ._2)
+    (lowerToString(rg.getLower), upperToString(rg.getUpper), roles, roles)
   }
 
   def getRoleGroups(comp: CompartmentType): Traversable[RoleGroup] = comp.getParts.asScala.map(_.getRole).flatMap {

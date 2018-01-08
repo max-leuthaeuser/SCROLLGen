@@ -25,11 +25,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.impl.TypeImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link crom_l1_composed.impl.TypeImpl#getOperations <em>Operations</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

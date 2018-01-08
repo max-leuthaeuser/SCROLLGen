@@ -10,11 +10,11 @@ package crom_l1_composed;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.Fulfillment#getFilled <em>Filled</em>}</li>
  *   <li>{@link crom_l1_composed.Fulfillment#getFiller <em>Filler</em>}</li>
  * </ul>
- * </p>
  *
  * @see crom_l1_composed.Crom_l1_composedPackage#getFulfillment()
  * @model
@@ -56,12 +56,12 @@ public interface Fulfillment extends Relation {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Filler</em>' reference.
-	 * @see #setFiller(RigidType)
+	 * @see #setFiller(Type)
 	 * @see crom_l1_composed.Crom_l1_composedPackage#getFulfillment_Filler()
 	 * @model required="true"
 	 * @generated
 	 */
-	RigidType getFiller();
+	Type getFiller();
 
 	/**
 	 * Sets the value of the '{@link crom_l1_composed.Fulfillment#getFiller <em>Filler</em>}' reference.
@@ -71,6 +71,6 @@ public interface Fulfillment extends Relation {
 	 * @see #getFiller()
 	 * @generated
 	 */
-	void setFiller(RigidType value);
+	void setFiller(Type value);
 
 } // Fulfillment

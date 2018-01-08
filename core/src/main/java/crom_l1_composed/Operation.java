@@ -11,12 +11,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.Operation#getParams <em>Params</em>}</li>
  *   <li>{@link crom_l1_composed.Operation#getOperation <em>Operation</em>}</li>
  *   <li>{@link crom_l1_composed.Operation#getOwner <em>Owner</em>}</li>
  * </ul>
- * </p>
  *
  * @see crom_l1_composed.Crom_l1_composedPackage#getOperation()
  * @model

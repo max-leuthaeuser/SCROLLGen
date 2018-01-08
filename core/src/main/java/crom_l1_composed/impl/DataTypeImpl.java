@@ -18,11 +18,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.impl.DataTypeImpl#isSerializable <em>Serializable</em>}</li>
  *   <li>{@link crom_l1_composed.impl.DataTypeImpl#getTr_extends <em>Tr extends</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

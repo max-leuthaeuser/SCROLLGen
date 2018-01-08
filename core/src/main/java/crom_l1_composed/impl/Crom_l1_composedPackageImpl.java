@@ -758,6 +758,24 @@ public class Crom_l1_composedPackageImpl extends EPackageImpl implements Crom_l1
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getCompartmentType_Contains() {
+		return (EReference)compartmentTypeEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCompartmentType_Fulfillments() {
+		return (EReference)compartmentTypeEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAntiRigidType() {
 		return antiRigidTypeEClass;
 	}
@@ -1481,6 +1499,8 @@ public class Crom_l1_composedPackageImpl extends EPackageImpl implements Crom_l1
 		createEReference(compartmentTypeEClass, COMPARTMENT_TYPE__RELATIONSHIPS);
 		createEReference(compartmentTypeEClass, COMPARTMENT_TYPE__CONSTRAINTS);
 		createEReference(compartmentTypeEClass, COMPARTMENT_TYPE__TR_EXTENDS);
+		createEReference(compartmentTypeEClass, COMPARTMENT_TYPE__CONTAINS);
+		createEReference(compartmentTypeEClass, COMPARTMENT_TYPE__FULFILLMENTS);
 
 		antiRigidTypeEClass = createEClass(ANTI_RIGID_TYPE);
 
@@ -1713,6 +1733,8 @@ public class Crom_l1_composedPackageImpl extends EPackageImpl implements Crom_l1
 		initEReference(getCompartmentType_Relationships(), this.getRelationship(), null, "relationships", null, 0, -1, CompartmentType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCompartmentType_Constraints(), this.getConstraint(), null, "constraints", null, 0, -1, CompartmentType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCompartmentType_Tr_extends(), this.getCompartmentType(), null, "tr_extends", null, 0, 1, CompartmentType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompartmentType_Contains(), this.getCompartmentType(), null, "contains", null, 0, -1, CompartmentType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompartmentType_Fulfillments(), this.getFulfillment(), null, "fulfillments", null, 0, -1, CompartmentType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(antiRigidTypeEClass, AntiRigidType.class, "AntiRigidType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1727,7 +1749,7 @@ public class Crom_l1_composedPackageImpl extends EPackageImpl implements Crom_l1
 
 		initEClass(fulfillmentEClass, Fulfillment.class, "Fulfillment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFulfillment_Filled(), this.getAbstractRole(), null, "filled", null, 1, 1, Fulfillment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFulfillment_Filler(), this.getRigidType(), null, "filler", null, 1, 1, Fulfillment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFulfillment_Filler(), this.getType(), null, "filler", null, 1, 1, Fulfillment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(inheritanceEClass, Inheritance.class, "Inheritance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

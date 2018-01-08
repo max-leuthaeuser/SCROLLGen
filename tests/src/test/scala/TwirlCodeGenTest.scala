@@ -5,7 +5,7 @@ import org.scalatest.{Matchers, GivenWhenThen, FeatureSpec}
 class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
   info("Test spec for generating code out of an CROM model instance.")
 
-  scenario("Generating code from a a valid model without case classes") {
+  scenario("Generating code from a valid model without case classes") {
     val expected =
       """import scroll.internal.annotations.Role
         |import scroll.internal.support.DispatchQuery
@@ -197,7 +197,7 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
     new CROMGenerator(false).generate(model) shouldBe expected
   }
 
-  scenario("Generating code from a a valid model with case classes") {
+  scenario("Generating code from a valid model with case classes") {
     val expected =
       """import scroll.internal.annotations.Role
         |import scroll.internal.support.DispatchQuery
@@ -347,6 +347,117 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |}""".stripMargin
 
     val path = getClass.getResource("/Bank.crom").getPath
+
+    When("A specific valid CROM instance is given")
+    val model = new CROMImporter(path).loadModel()
+
+    Then("code should be generated correctly")
+    new CROMGenerator(true).generate(model) shouldBe expected
+  }
+
+  scenario("Generating code from the base test CROM") {
+    val expected =
+      """import scroll.internal.annotations.Role
+        |import scroll.internal.support.DispatchQuery
+        |import DispatchQuery._
+        |import scroll.internal.Compartment
+        |import scroll.internal.util.Many._
+        |
+        |object CROMApplication extends App {
+        |
+        |  case class SubNaturalA(AttributeSubNatA: Unit) extends NaturalA {
+        |
+        |  }
+        |
+        |  case class NaturalA(AttributeNatA: Unit) {
+        |
+        |    def OperationNatA(): Unit = {
+        |      // TODO: auto-generated method-stub. Implement!
+        |      ???
+        |    }
+        |  }
+        |
+        |  case class CompartmentA() extends Compartment {
+        |    import Relationship._
+        |
+        |    @Role case class RoleF() {
+        |
+        |    }
+        |
+        |    @Role case class RoleE() {
+        |
+        |    }
+        |
+        |    @Role case class RoleG() {
+        |
+        |    }
+        |
+        |    @Role case class RoleH() {
+        |
+        |    }
+        |
+        |    @Role case class RoleJ() {
+        |
+        |    }
+        |
+        |    @Role case class RoleK() {
+        |
+        |    }
+        |
+        |    RoleGroup("RoleGroupA").containing[RoleG, RoleH, RoleJ, RoleK](1, *)(4, 4)
+        |
+        |    val RelF = Relationship("RelF").from[RoleH](0 To 1).to[RoleK](0 To 1)
+        |
+        |    RoleRestriction[NaturalA, RoleG]
+        |
+        |    RoleRestriction[NaturalA, RoleH]
+        |
+        |    RoleRestriction[NaturalA, RoleJ]
+        |
+        |    RoleRestriction[NaturalA, RoleK]
+        |  }
+        |
+        |  case class CompartmentB() extends Compartment {
+        |    import Relationship._
+        |
+        |    @Role case class RoleA() {
+        |
+        |    }
+        |
+        |    @Role case class RoleB() {
+        |
+        |    }
+        |
+        |    @Role case class RoleC() {
+        |
+        |    }
+        |
+        |    @Role case class RoleD() {
+        |
+        |    }
+        |
+        |    val RelA = Relationship("RelA").from[RoleA](1).to[RoleB](1)
+        |
+        |    val RelD = Relationship("RelD").from[RoleA](0 To *).to[RoleC](0 To *)
+        |
+        |    val RelE = Relationship("RelE").from[RoleA](0 To *).to[RoleD](0 To *)
+        |
+        |    val RelB = Relationship("RelB").from[RoleB](0 To 1).to[RoleD](0 To 1)
+        |
+        |    val RelC = Relationship("RelC").from[RoleD](1 To *).to[RoleC](1 To *)
+        |
+        |    RoleRestriction[NaturalA, RoleA]
+        |
+        |    RoleRestriction[NaturalA, RoleB]
+        |
+        |    RoleRestriction[NaturalA, RoleC]
+        |
+        |    RoleRestriction[NaturalA, RoleD]
+        |  }
+        |
+        |}""".stripMargin
+
+    val path = getClass.getResource("/baseTest2.crom").getPath
 
     When("A specific valid CROM instance is given")
     val model = new CROMImporter(path).loadModel()

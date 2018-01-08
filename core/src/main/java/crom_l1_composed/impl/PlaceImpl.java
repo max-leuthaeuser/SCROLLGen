@@ -20,12 +20,12 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.impl.PlaceImpl#getLower <em>Lower</em>}</li>
  *   <li>{@link crom_l1_composed.impl.PlaceImpl#getUpper <em>Upper</em>}</li>
  *   <li>{@link crom_l1_composed.impl.PlaceImpl#getHolder <em>Holder</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -18,10 +18,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.impl.RoleTypeImpl#getTr_extends <em>Tr extends</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -25,12 +25,12 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.impl.RelationTargetImpl#getName <em>Name</em>}</li>
  *   <li>{@link crom_l1_composed.impl.RelationTargetImpl#getIncoming <em>Incoming</em>}</li>
  *   <li>{@link crom_l1_composed.impl.RelationTargetImpl#getOutgoing <em>Outgoing</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

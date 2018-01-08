@@ -11,11 +11,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.RelationTarget#getIncoming <em>Incoming</em>}</li>
  *   <li>{@link crom_l1_composed.RelationTarget#getOutgoing <em>Outgoing</em>}</li>
  * </ul>
- * </p>
  *
  * @see crom_l1_composed.Crom_l1_composedPackage#getRelationTarget()
  * @model abstract="true"

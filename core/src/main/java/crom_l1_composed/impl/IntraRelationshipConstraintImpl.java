@@ -19,10 +19,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.impl.IntraRelationshipConstraintImpl#getRelation <em>Relation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

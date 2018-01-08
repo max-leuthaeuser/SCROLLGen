@@ -10,11 +10,11 @@ package crom_l1_composed;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.DataType#isSerializable <em>Serializable</em>}</li>
  *   <li>{@link crom_l1_composed.DataType#getTr_extends <em>Tr extends</em>}</li>
  * </ul>
- * </p>
  *
  * @see crom_l1_composed.Crom_l1_composedPackage#getDataType()
  * @model

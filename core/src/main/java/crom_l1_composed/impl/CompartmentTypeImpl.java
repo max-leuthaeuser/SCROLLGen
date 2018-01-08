@@ -5,6 +5,7 @@ package crom_l1_composed.impl;
 import crom_l1_composed.CompartmentType;
 import crom_l1_composed.Constraint;
 import crom_l1_composed.Crom_l1_composedPackage;
+import crom_l1_composed.Fulfillment;
 import crom_l1_composed.Part;
 import crom_l1_composed.Relationship;
 
@@ -30,13 +31,15 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.impl.CompartmentTypeImpl#getParts <em>Parts</em>}</li>
  *   <li>{@link crom_l1_composed.impl.CompartmentTypeImpl#getRelationships <em>Relationships</em>}</li>
  *   <li>{@link crom_l1_composed.impl.CompartmentTypeImpl#getConstraints <em>Constraints</em>}</li>
  *   <li>{@link crom_l1_composed.impl.CompartmentTypeImpl#getTr_extends <em>Tr extends</em>}</li>
+ *   <li>{@link crom_l1_composed.impl.CompartmentTypeImpl#getContains <em>Contains</em>}</li>
+ *   <li>{@link crom_l1_composed.impl.CompartmentTypeImpl#getFulfillments <em>Fulfillments</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -80,6 +83,26 @@ public class CompartmentTypeImpl extends RigidTypeImpl implements CompartmentTyp
 	 * @ordered
 	 */
 	protected CompartmentType tr_extends;
+
+	/**
+	 * The cached value of the '{@link #getContains() <em>Contains</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContains()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<CompartmentType> contains;
+
+	/**
+	 * The cached value of the '{@link #getFulfillments() <em>Fulfillments</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFulfillments()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Fulfillment> fulfillments;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -179,6 +202,30 @@ public class CompartmentTypeImpl extends RigidTypeImpl implements CompartmentTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<CompartmentType> getContains() {
+		if (contains == null) {
+			contains = new EObjectContainmentEList<CompartmentType>(CompartmentType.class, this, Crom_l1_composedPackage.COMPARTMENT_TYPE__CONTAINS);
+		}
+		return contains;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Fulfillment> getFulfillments() {
+		if (fulfillments == null) {
+			fulfillments = new EObjectContainmentEList<Fulfillment>(Fulfillment.class, this, Crom_l1_composedPackage.COMPARTMENT_TYPE__FULFILLMENTS);
+		}
+		return fulfillments;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -203,6 +250,10 @@ public class CompartmentTypeImpl extends RigidTypeImpl implements CompartmentTyp
 				return ((InternalEList<?>)getRelationships()).basicRemove(otherEnd, msgs);
 			case Crom_l1_composedPackage.COMPARTMENT_TYPE__CONSTRAINTS:
 				return ((InternalEList<?>)getConstraints()).basicRemove(otherEnd, msgs);
+			case Crom_l1_composedPackage.COMPARTMENT_TYPE__CONTAINS:
+				return ((InternalEList<?>)getContains()).basicRemove(otherEnd, msgs);
+			case Crom_l1_composedPackage.COMPARTMENT_TYPE__FULFILLMENTS:
+				return ((InternalEList<?>)getFulfillments()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -224,6 +275,10 @@ public class CompartmentTypeImpl extends RigidTypeImpl implements CompartmentTyp
 			case Crom_l1_composedPackage.COMPARTMENT_TYPE__TR_EXTENDS:
 				if (resolve) return getTr_extends();
 				return basicGetTr_extends();
+			case Crom_l1_composedPackage.COMPARTMENT_TYPE__CONTAINS:
+				return getContains();
+			case Crom_l1_composedPackage.COMPARTMENT_TYPE__FULFILLMENTS:
+				return getFulfillments();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -252,6 +307,14 @@ public class CompartmentTypeImpl extends RigidTypeImpl implements CompartmentTyp
 			case Crom_l1_composedPackage.COMPARTMENT_TYPE__TR_EXTENDS:
 				setTr_extends((CompartmentType)newValue);
 				return;
+			case Crom_l1_composedPackage.COMPARTMENT_TYPE__CONTAINS:
+				getContains().clear();
+				getContains().addAll((Collection<? extends CompartmentType>)newValue);
+				return;
+			case Crom_l1_composedPackage.COMPARTMENT_TYPE__FULFILLMENTS:
+				getFulfillments().clear();
+				getFulfillments().addAll((Collection<? extends Fulfillment>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -276,6 +339,12 @@ public class CompartmentTypeImpl extends RigidTypeImpl implements CompartmentTyp
 			case Crom_l1_composedPackage.COMPARTMENT_TYPE__TR_EXTENDS:
 				setTr_extends((CompartmentType)null);
 				return;
+			case Crom_l1_composedPackage.COMPARTMENT_TYPE__CONTAINS:
+				getContains().clear();
+				return;
+			case Crom_l1_composedPackage.COMPARTMENT_TYPE__FULFILLMENTS:
+				getFulfillments().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -296,6 +365,10 @@ public class CompartmentTypeImpl extends RigidTypeImpl implements CompartmentTyp
 				return constraints != null && !constraints.isEmpty();
 			case Crom_l1_composedPackage.COMPARTMENT_TYPE__TR_EXTENDS:
 				return tr_extends != null;
+			case Crom_l1_composedPackage.COMPARTMENT_TYPE__CONTAINS:
+				return contains != null && !contains.isEmpty();
+			case Crom_l1_composedPackage.COMPARTMENT_TYPE__FULFILLMENTS:
+				return fulfillments != null && !fulfillments.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

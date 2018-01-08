@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ASCII"?>
+<crom_l1_composed:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:crom_l1_composed="platform:/resource/org.rosi.crom.metamodel/">
+  <elements xsi:type="crom_l1_composed:CompartmentType" name="CompartmentA">
+    <parts lower="1">
+      <role xsi:type="crom_l1_composed:RoleType" name="RoleF"/>
+    </parts>
+    <parts upper="1">
+      <role xsi:type="crom_l1_composed:RoleType" name="RoleE"/>
+    </parts>
+    <parts lower="1" upper="1">
+      <role xsi:type="crom_l1_composed:RoleGroup" name="RoleGroupA" lower="1">
+        <elements xsi:type="crom_l1_composed:RoleType" name="RoleG"/>
+        <elements xsi:type="crom_l1_composed:RoleType" name="RoleH" outgoing="//@elements.0/@relationships.0"/>
+        <elements xsi:type="crom_l1_composed:RoleType" name="RoleJ"/>
+        <elements xsi:type="crom_l1_composed:RoleType" name="RoleK" incoming="//@elements.0/@relationships.0"/>
+      </role>
+    </parts>
+    <relationships name="RelF">
+      <first upper="1" holder="//@elements.0/@parts.2/@role/@elements.1"/>
+      <second lower="1" holder="//@elements.0/@parts.2/@role/@elements.3"/>
+    </relationships>
+  </elements>
+  <elements xsi:type="crom_l1_composed:NaturalType" name="SubNaturalA" outgoing="//@relations.0">
+    <attributes name="AttributeSubNatA"/>
+  </elements>
+  <elements xsi:type="crom_l1_composed:NaturalType" name="NaturalA" incoming="//@relations.0">
+    <attributes name="AttributeNatA"/>
+    <operations name="OperationNatA"/>
+  </elements>
+  <elements xsi:type="crom_l1_composed:Group" name="GroupA">
+    <elements xsi:type="crom_l1_composed:NaturalType" name="NaturalB">
+      <attributes name="AttributeNatB"/>
+      <operations name="OperationNatB"/>
+    </elements>
+  </elements>
+  <elements xsi:type="crom_l1_composed:CompartmentType" name="CompartmentB">
+    <parts upper="1">
+      <role xsi:type="crom_l1_composed:RoleType" name="RoleA" outgoing="//@elements.4/@relationships.0 //@elements.4/@relationships.3 //@elements.4/@relationships.4"/>
+    </parts>
+    <parts lower="1" upper="1">
+      <role xsi:type="crom_l1_composed:RoleType" name="RoleB" incoming="//@elements.4/@relationships.0" outgoing="//@elements.4/@relationships.1"/>
+    </parts>
+    <parts lower="1">
+      <role xsi:type="crom_l1_composed:RoleType" name="RoleC" incoming="//@elements.4/@relationships.2 //@elements.4/@relationships.3"/>
+    </parts>
+    <parts>
+      <role xsi:type="crom_l1_composed:RoleType" name="RoleD" incoming="//@elements.4/@relationships.1 //@elements.4/@relationships.4" outgoing="//@elements.4/@relationships.2"/>
+    </parts>
+    <relationships name="RelA">
+      <first lower="1" upper="1" holder="//@elements.4/@parts.0/@role"/>
+      <second holder="//@elements.4/@parts.1/@role"/>
+    </relationships>
+    <relationships name="RelB">
+      <first upper="1" holder="//@elements.4/@parts.1/@role"/>
+      <second lower="1" holder="//@elements.4/@parts.3/@role"/>
+    </relationships>
+    <relationships name="RelC">
+      <first lower="1" holder="//@elements.4/@parts.3/@role"/>
+      <second lower="1" upper="1" holder="//@elements.4/@parts.2/@role"/>
+    </relationships>
+    <relationships name="RelD">
+      <first holder="//@elements.4/@parts.0/@role"/>
+      <second holder="//@elements.4/@parts.2/@role"/>
+    </relationships>
+    <relationships name="RelE">
+      <first holder="//@elements.4/@parts.0/@role"/>
+      <second holder="//@elements.4/@parts.3/@role"/>
+    </relationships>
+    <constraints xsi:type="crom_l1_composed:Reflexive" relation="//@elements.4/@relationships.0"/>
+    <constraints xsi:type="crom_l1_composed:Irreflexive" relation="//@elements.4/@relationships.1"/>
+    <constraints xsi:type="crom_l1_composed:Total" relation="//@elements.4/@relationships.2"/>
+    <constraints xsi:type="crom_l1_composed:Cyclic" relation="//@elements.4/@relationships.4"/>
+    <constraints xsi:type="crom_l1_composed:Acyclic" relation="//@elements.4/@relationships.3"/>
+    <contains name="A"/>
+  </elements>
+  <relations xsi:type="crom_l1_composed:NaturalInheritance" super="//@elements.2" sub="//@elements.1"/>
+  <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@elements.4/@parts.0/@role" filler="//@elements.2"/>
+  <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@elements.4/@parts.1/@role" filler="//@elements.2"/>
+  <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@elements.4/@parts.2/@role" filler="//@elements.2"/>
+  <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@elements.4/@parts.3/@role" filler="//@elements.2"/>
+  <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@elements.0/@parts.2/@role" filler="//@elements.2"/>
+</crom_l1_composed:Model>

@@ -10,11 +10,11 @@ package crom_l1_composed;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.NaturalInheritance#getSuper <em>Super</em>}</li>
  *   <li>{@link crom_l1_composed.NaturalInheritance#getSub <em>Sub</em>}</li>
  * </ul>
- * </p>
  *
  * @see crom_l1_composed.Crom_l1_composedPackage#getNaturalInheritance()
  * @model

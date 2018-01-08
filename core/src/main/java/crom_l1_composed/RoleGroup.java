@@ -11,12 +11,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.RoleGroup#getLower <em>Lower</em>}</li>
  *   <li>{@link crom_l1_composed.RoleGroup#getUpper <em>Upper</em>}</li>
  *   <li>{@link crom_l1_composed.RoleGroup#getElements <em>Elements</em>}</li>
  * </ul>
- * </p>
  *
  * @see crom_l1_composed.Crom_l1_composedPackage#getRoleGroup()
  * @model

@@ -11,13 +11,13 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.Relationship#getFirst <em>First</em>}</li>
  *   <li>{@link crom_l1_composed.Relationship#getSecond <em>Second</em>}</li>
  *   <li>{@link crom_l1_composed.Relationship#getDirection <em>Direction</em>}</li>
  *   <li>{@link crom_l1_composed.Relationship#getTr_constraints <em>Tr constraints</em>}</li>
  * </ul>
- * </p>
  *
  * @see crom_l1_composed.Crom_l1_composedPackage#getRelationship()
  * @model

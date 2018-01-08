@@ -24,13 +24,13 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.impl.PartImpl#getWhole <em>Whole</em>}</li>
  *   <li>{@link crom_l1_composed.impl.PartImpl#getLower <em>Lower</em>}</li>
  *   <li>{@link crom_l1_composed.impl.PartImpl#getUpper <em>Upper</em>}</li>
  *   <li>{@link crom_l1_composed.impl.PartImpl#getRole <em>Role</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

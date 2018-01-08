@@ -5,7 +5,7 @@ package crom_l1_composed.impl;
 import crom_l1_composed.AbstractRole;
 import crom_l1_composed.Crom_l1_composedPackage;
 import crom_l1_composed.Fulfillment;
-import crom_l1_composed.RigidType;
+import crom_l1_composed.Type;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -20,11 +20,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link crom_l1_composed.impl.FulfillmentImpl#getFilled <em>Filled</em>}</li>
  *   <li>{@link crom_l1_composed.impl.FulfillmentImpl#getFiller <em>Filler</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -47,7 +47,7 @@ public class FulfillmentImpl extends RelationImpl implements Fulfillment {
 	 * @generated
 	 * @ordered
 	 */
-	protected RigidType filler;
+	protected Type filler;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -111,10 +111,10 @@ public class FulfillmentImpl extends RelationImpl implements Fulfillment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RigidType getFiller() {
+	public Type getFiller() {
 		if (filler != null && filler.eIsProxy()) {
 			InternalEObject oldFiller = (InternalEObject)filler;
-			filler = (RigidType)eResolveProxy(oldFiller);
+			filler = (Type)eResolveProxy(oldFiller);
 			if (filler != oldFiller) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Crom_l1_composedPackage.FULFILLMENT__FILLER, oldFiller, filler));
@@ -128,7 +128,7 @@ public class FulfillmentImpl extends RelationImpl implements Fulfillment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RigidType basicGetFiller() {
+	public Type basicGetFiller() {
 		return filler;
 	}
 
@@ -137,8 +137,8 @@ public class FulfillmentImpl extends RelationImpl implements Fulfillment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFiller(RigidType newFiller) {
-		RigidType oldFiller = filler;
+	public void setFiller(Type newFiller) {
+		Type oldFiller = filler;
 		filler = newFiller;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Crom_l1_composedPackage.FULFILLMENT__FILLER, oldFiller, filler));
@@ -174,7 +174,7 @@ public class FulfillmentImpl extends RelationImpl implements Fulfillment {
 				setFilled((AbstractRole)newValue);
 				return;
 			case Crom_l1_composedPackage.FULFILLMENT__FILLER:
-				setFiller((RigidType)newValue);
+				setFiller((Type)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -192,7 +192,7 @@ public class FulfillmentImpl extends RelationImpl implements Fulfillment {
 				setFilled((AbstractRole)null);
 				return;
 			case Crom_l1_composedPackage.FULFILLMENT__FILLER:
-				setFiller((RigidType)null);
+				setFiller((Type)null);
 				return;
 		}
 		super.eUnset(featureID);
