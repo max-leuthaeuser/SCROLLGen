@@ -2,10 +2,10 @@ val scalariform = "0.2.6"
 val emfcommon = "2.10.1"
 val emfcore = "2.10.1"
 val uml2 = "3.1.0.v201006071150"
-val scalatest = "3.0.4"
+val scalatest = "3.0.5"
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.4",
+  scalaVersion := "2.12.6",
   version := "0.0.2",
   logBuffered := false,
   libraryDependencies ++= Seq(
