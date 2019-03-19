@@ -104,25 +104,25 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |      ???
         |    }
         |
-        |    @Role class Customer {
+        |    class Customer {
         |
         |    }
         |
-        |    @Role class Consultant {
+        |    class Consultant {
         |
         |      var phone: Unit = ???
         |
         |    }
         |
-        |    @Role class SavingsAccount {
+        |    class SavingsAccount {
         |
         |    }
         |
-        |    @Role class CheckingAccount {
+        |    class CheckingAccount {
         |
         |    }
         |
-        |    @Role class MoneyTransfer {
+        |    class MoneyTransfer {
         |
         |    }
         |
@@ -161,7 +161,7 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |      ???
         |    }
         |
-        |    @Role class Target {
+        |    class Target {
         |
         |      def deposite(amount: Money): Unit = {
         |        // TODO: auto-generated method-stub. Implement!
@@ -169,7 +169,7 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |      }
         |    }
         |
-        |    @Role class Source {
+        |    class Source {
         |
         |      def withdraw(amount: Money): Unit = {
         |        // TODO: auto-generated method-stub. Implement!
@@ -268,23 +268,23 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |      ???
         |    }
         |
-        |    @Role case class Customer() {
+        |    case class Customer() {
         |
         |    }
         |
-        |    @Role case class Consultant(phone: Unit) {
+        |    case class Consultant(phone: Unit) {
         |
         |    }
         |
-        |    @Role case class SavingsAccount() {
+        |    case class SavingsAccount() {
         |
         |    }
         |
-        |    @Role case class CheckingAccount() {
+        |    case class CheckingAccount() {
         |
         |    }
         |
-        |    @Role case class MoneyTransfer() {
+        |    case class MoneyTransfer() {
         |
         |    }
         |
@@ -319,7 +319,7 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |      ???
         |    }
         |
-        |    @Role case class Target() {
+        |    case class Target() {
         |
         |      def deposite(amount: Money): Unit = {
         |        // TODO: auto-generated method-stub. Implement!
@@ -327,7 +327,7 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |      }
         |    }
         |
-        |    @Role case class Source() {
+        |    case class Source() {
         |
         |      def withdraw(amount: Money): Unit = {
         |        // TODO: auto-generated method-stub. Implement!
@@ -380,27 +380,27 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |  case class CompartmentA() extends Compartment {
         |    import Relationship._
         |
-        |    @Role case class RoleF() {
+        |    case class RoleF() {
         |
         |    }
         |
-        |    @Role case class RoleE() {
+        |    case class RoleE() {
         |
         |    }
         |
-        |    @Role case class RoleG() {
+        |    case class RoleG() {
         |
         |    }
         |
-        |    @Role case class RoleH() {
+        |    case class RoleH() {
         |
         |    }
         |
-        |    @Role case class RoleJ() {
+        |    case class RoleJ() {
         |
         |    }
         |
-        |    @Role case class RoleK() {
+        |    case class RoleK() {
         |
         |    }
         |
@@ -420,19 +420,19 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |  case class CompartmentB() extends Compartment {
         |    import Relationship._
         |
-        |    @Role case class RoleA() {
+        |    case class RoleA() {
         |
         |    }
         |
-        |    @Role case class RoleB() {
+        |    case class RoleB() {
         |
         |    }
         |
-        |    @Role case class RoleC() {
+        |    case class RoleC() {
         |
         |    }
         |
-        |    @Role case class RoleD() {
+        |    case class RoleD() {
         |
         |    }
         |
