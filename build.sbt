@@ -1,11 +1,11 @@
-val scalariform = "0.2.6"
-val emfcommon = "2.10.1"
-val emfcore = "2.10.1"
+val scalariform = "0.2.7"
+val emfcommon = "2.15.0"
+val emfcore = "2.15.0"
 val uml2 = "3.1.0.v201006071150"
-val scalatest = "3.0.5"
+val scalatest = "3.0.7"
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.6",
+  scalaVersion := "2.12.8",
   version := "0.0.2",
   logBuffered := false,
   libraryDependencies ++= Seq(
@@ -42,11 +42,9 @@ lazy val core = (project in file("core")).
     assemblyMergeStrategy in assembly := {
       case "plugin.properties" => MergeStrategy.last
       case "plugin.xml" => MergeStrategy.last
-      case "schema/dynamic_package.exsd" => MergeStrategy.last
-      case "schema/generated_package.exsd" => MergeStrategy.last
-      case x =>
-        val oldStrategy = (assemblyMergeStrategy in assembly).value
-        oldStrategy(x)
+      case PathList(ps @ _*) if ps.last contains "dynamic_package.exsd" => MergeStrategy.last
+      case PathList(ps @ _*) if ps.last contains "generated_package.exsd" => MergeStrategy.last
+      case x => (assemblyMergeStrategy in assembly).value(x)
     },
     mainClass in compile := Some("SCROLLGen"),
     mainClass in assembly := Some("SCROLLGen"),
