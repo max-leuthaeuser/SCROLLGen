@@ -3,7 +3,6 @@
 @import generator.CROMGenerator
 @import crom_l1_composed.Model
 
-import scroll.internal.annotations.Role
 import scroll.internal.support.DispatchQuery
 import DispatchQuery._
 import scroll.internal.Compartment

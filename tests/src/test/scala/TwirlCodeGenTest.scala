@@ -7,8 +7,7 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
 
   scenario("Generating code from a valid model without case classes") {
     val expected =
-      """import scroll.internal.annotations.Role
-        |import scroll.internal.support.DispatchQuery
+      """import scroll.internal.support.DispatchQuery
         |import DispatchQuery._
         |import scroll.internal.Compartment
         |import scroll.internal.util.Many._
@@ -23,17 +22,14 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |    def add(o: Money): Money = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |
         |    def sub(o: Money): Money = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |
         |    def mult(o: Unit): Money = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |  }
         |
@@ -69,17 +65,14 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |    def decrease(amount: Money): Unit = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |
         |    def increase(amount: Money): Unit = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |
         |    def getBalance(): Money = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |  }
         |
@@ -96,12 +89,10 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |    def executeTransactions(): Unit = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |
         |    def login(id: Unit, cred: Unit): Unit = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |
         |    class Customer {
@@ -128,25 +119,25 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |    RoleGroup("BankAccounts").containing[SavingsAccount, CheckingAccount](1, 1)(2, 2)
         |
-        |    val own_ca = Relationship("own_ca").from[Customer](1).to[CheckingAccount](1)
+        |    val own_ca = Relationship("own_ca").from[Customer](1).to[CheckingAccount](0 To *)
         |
-        |    val own_sa = Relationship("own_sa").from[Customer](1 To *).to[SavingsAccount](1 To *)
+        |    val own_sa = Relationship("own_sa").from[Customer](1 To *).to[SavingsAccount](0 To *)
         |
         |    val advices = Relationship("advices").from[Consultant](*).to[Customer](*)
         |
-        |    RoleRestriction[Company, Customer]
+        |    AddRoleRestriction[Company, Customer]
         |
-        |    RoleRestriction[Person, Customer]
+        |    AddRoleRestriction[Person, Customer]
         |
-        |    RoleRestriction[Person, Consultant]
+        |    AddRoleRestriction[Person, Consultant]
         |
-        |    RoleRestriction[Account, SavingsAccount]
+        |    AddRoleRestriction[Account, SavingsAccount]
         |
-        |    RoleRestriction[Account, CheckingAccount]
+        |    AddRoleRestriction[Account, CheckingAccount]
         |
-        |    RoleRestriction[Alien, Customer]
+        |    AddRoleRestriction[Alien, Customer]
         |
-        |    RoleRestriction[Transaction, MoneyTransfer]
+        |    AddRoleRestriction[Transaction, MoneyTransfer]
         |  }
         |
         |  class Transaction extends Compartment {
@@ -158,14 +149,12 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |    def execute(): Unit = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |
         |    class Target {
         |
         |      def deposite(amount: Money): Unit = {
         |        // TODO: auto-generated method-stub. Implement!
-        |        ???
         |      }
         |    }
         |
@@ -173,7 +162,6 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |      def withdraw(amount: Money): Unit = {
         |        // TODO: auto-generated method-stub. Implement!
-        |        ???
         |      }
         |    }
         |
@@ -181,9 +169,9 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |    val transfer = Relationship("transfer").from[Source](1).to[Target](1)
         |
-        |    RoleRestriction[Account, Target]
+        |    AddRoleRestriction[Account, Target]
         |
-        |    RoleRestriction[Account, Source]
+        |    AddRoleRestriction[Account, Source]
         |  }
         |
         |}""".stripMargin
@@ -199,8 +187,7 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
 
   scenario("Generating code from a valid model with case classes") {
     val expected =
-      """import scroll.internal.annotations.Role
-        |import scroll.internal.support.DispatchQuery
+      """import scroll.internal.support.DispatchQuery
         |import DispatchQuery._
         |import scroll.internal.Compartment
         |import scroll.internal.util.Many._
@@ -211,17 +198,14 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |    def add(o: Money): Money = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |
         |    def sub(o: Money): Money = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |
         |    def mult(o: Unit): Money = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |  }
         |
@@ -237,17 +221,14 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |    def decrease(amount: Money): Unit = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |
         |    def increase(amount: Money): Unit = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |
         |    def getBalance(): Money = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |  }
         |
@@ -260,12 +241,10 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |    def executeTransactions(): Unit = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |
         |    def login(id: Unit, cred: Unit): Unit = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |
         |    case class Customer() {
@@ -290,25 +269,25 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |    RoleGroup("BankAccounts").containing[SavingsAccount, CheckingAccount](1, 1)(2, 2)
         |
-        |    val own_ca = Relationship("own_ca").from[Customer](1).to[CheckingAccount](1)
+        |    val own_ca = Relationship("own_ca").from[Customer](1).to[CheckingAccount](0 To *)
         |
-        |    val own_sa = Relationship("own_sa").from[Customer](1 To *).to[SavingsAccount](1 To *)
+        |    val own_sa = Relationship("own_sa").from[Customer](1 To *).to[SavingsAccount](0 To *)
         |
         |    val advices = Relationship("advices").from[Consultant](*).to[Customer](*)
         |
-        |    RoleRestriction[Company, Customer]
+        |    AddRoleRestriction[Company, Customer]
         |
-        |    RoleRestriction[Person, Customer]
+        |    AddRoleRestriction[Person, Customer]
         |
-        |    RoleRestriction[Person, Consultant]
+        |    AddRoleRestriction[Person, Consultant]
         |
-        |    RoleRestriction[Account, SavingsAccount]
+        |    AddRoleRestriction[Account, SavingsAccount]
         |
-        |    RoleRestriction[Account, CheckingAccount]
+        |    AddRoleRestriction[Account, CheckingAccount]
         |
-        |    RoleRestriction[Alien, Customer]
+        |    AddRoleRestriction[Alien, Customer]
         |
-        |    RoleRestriction[Transaction, MoneyTransfer]
+        |    AddRoleRestriction[Transaction, MoneyTransfer]
         |  }
         |
         |  case class Transaction(creationTime: Unit, amount: Money) extends Compartment {
@@ -316,14 +295,12 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |    def execute(): Unit = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |
         |    case class Target() {
         |
         |      def deposite(amount: Money): Unit = {
         |        // TODO: auto-generated method-stub. Implement!
-        |        ???
         |      }
         |    }
         |
@@ -331,7 +308,6 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |      def withdraw(amount: Money): Unit = {
         |        // TODO: auto-generated method-stub. Implement!
-        |        ???
         |      }
         |    }
         |
@@ -339,9 +315,9 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |    val transfer = Relationship("transfer").from[Source](1).to[Target](1)
         |
-        |    RoleRestriction[Account, Target]
+        |    AddRoleRestriction[Account, Target]
         |
-        |    RoleRestriction[Account, Source]
+        |    AddRoleRestriction[Account, Source]
         |  }
         |
         |}""".stripMargin
@@ -357,8 +333,7 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
 
   scenario("Generating code from the base test CROM") {
     val expected =
-      """import scroll.internal.annotations.Role
-        |import scroll.internal.support.DispatchQuery
+      """import scroll.internal.support.DispatchQuery
         |import DispatchQuery._
         |import scroll.internal.Compartment
         |import scroll.internal.util.Many._
@@ -373,7 +348,6 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |    def OperationNatA(): Unit = {
         |      // TODO: auto-generated method-stub. Implement!
-        |      ???
         |    }
         |  }
         |
@@ -406,15 +380,15 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |    RoleGroup("RoleGroupA").containing[RoleG, RoleH, RoleJ, RoleK](1, *)(4, 4)
         |
-        |    val RelF = Relationship("RelF").from[RoleH](0 To 1).to[RoleK](0 To 1)
+        |    val RelF = Relationship("RelF").from[RoleH](0 To 1).to[RoleK](1 To *)
         |
-        |    RoleRestriction[NaturalA, RoleG]
+        |    AddRoleRestriction[NaturalA, RoleG]
         |
-        |    RoleRestriction[NaturalA, RoleH]
+        |    AddRoleRestriction[NaturalA, RoleH]
         |
-        |    RoleRestriction[NaturalA, RoleJ]
+        |    AddRoleRestriction[NaturalA, RoleJ]
         |
-        |    RoleRestriction[NaturalA, RoleK]
+        |    AddRoleRestriction[NaturalA, RoleK]
         |  }
         |
         |  case class CompartmentB() extends Compartment {
@@ -436,23 +410,23 @@ class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
         |
         |    }
         |
-        |    val RelA = Relationship("RelA").from[RoleA](1).to[RoleB](1)
+        |    val RelA = Relationship("RelA").from[RoleA](1).to[RoleB](0 To *)
         |
         |    val RelD = Relationship("RelD").from[RoleA](0 To *).to[RoleC](0 To *)
         |
         |    val RelE = Relationship("RelE").from[RoleA](0 To *).to[RoleD](0 To *)
         |
-        |    val RelB = Relationship("RelB").from[RoleB](0 To 1).to[RoleD](0 To 1)
+        |    val RelB = Relationship("RelB").from[RoleB](0 To 1).to[RoleD](1 To *)
         |
-        |    val RelC = Relationship("RelC").from[RoleD](1 To *).to[RoleC](1 To *)
+        |    val RelC = Relationship("RelC").from[RoleD](1 To *).to[RoleC](1)
         |
-        |    RoleRestriction[NaturalA, RoleA]
+        |    AddRoleRestriction[NaturalA, RoleA]
         |
-        |    RoleRestriction[NaturalA, RoleB]
+        |    AddRoleRestriction[NaturalA, RoleB]
         |
-        |    RoleRestriction[NaturalA, RoleC]
+        |    AddRoleRestriction[NaturalA, RoleC]
         |
-        |    RoleRestriction[NaturalA, RoleD]
+        |    AddRoleRestriction[NaturalA, RoleD]
         |  }
         |
         |}""".stripMargin

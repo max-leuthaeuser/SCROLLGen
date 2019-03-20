@@ -4,6 +4,8 @@ import generator.CROMGenerator
 import importer.CROMImporter
 import utils.FileUtils._
 import utils.TimeUtils._
+import java.util.Formatter.DateTime
+import java.util.Formatter.DateTime
 
 object SCROLLGen extends App {
 
@@ -52,7 +54,7 @@ object SCROLLGen extends App {
   } else {
     ""
   }
-
+  
   println(s"Generating from ecore model '$modelFilePath' to SCROLL code '$outFilePath'$withCaseClasses ...")
   println(" => that took " + writeToFile(outFilePath, new CROMGenerator(caseClass).generate(new CROMImporter(modelFilePath).loadModel())).elapsed() + "ms")
   println("... finished.")

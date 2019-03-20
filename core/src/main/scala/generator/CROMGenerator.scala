@@ -24,6 +24,41 @@ object CROMGenerator {
     }
 
   def fixGenerics(in: String): String = in.replaceAll("<", "[").replaceAll(">", "]")
+  
+  def fixGenericsAndStandards(in: String): String = {
+    val staType = getStandardType(in)
+    if (staType != null)
+      return staType
+    return in.replaceAll("<", "[").replaceAll(">", "]")
+  }
+  
+  private def getStandardType(in: String): String = {
+    if (in == "String")
+      return "String"
+    if (in == "Integer" || in == "Int")
+      return "Int"
+    if (in == "Boolean")
+      return "Boolean"
+    if (in == "Byte")
+      return "Byte"
+    if (in == "Char")
+      return "Char"
+    if (in == "Double")
+      return "Double"
+    if (in == "Float")
+      return "Float"
+    if (in == "Long")
+      return "Long"
+    if (in == "Short")
+      return "Short"  
+    return null
+  }
+  
+  def isStandardType(in: String): Boolean = {
+    if (getStandardType(in) == null)
+      return false
+    return true 
+  }
 
   def placeToString(place: Place): String =
     if (place == null) {
