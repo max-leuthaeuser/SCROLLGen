@@ -9,6 +9,19 @@ import scalariform.parser.ScalaParserException
 
 object CROMGenerator {
 
+  private val STANDARD_TYPE_MAPPINGS = Map(
+    "String" -> "String",
+    "Integer" -> "Int",
+    "Int" -> "Int",
+    "Boolean" -> "Boolean",
+    "Byte" -> "Byte",
+    "Char" -> "Char",
+    "Double" -> "Double",
+    "Float" -> "Float",
+    "Long" -> "Long",
+    "Short" -> "Short"
+  )
+
   def getFulfillments(comp: CompartmentType, model: Model): Traversable[Fulfillment] =
     getFulfillments(model).filter(f => f.getFilled.isInstanceOf[RoleType] && getRoles(comp).exists(r => r.getName == getName(f.getFilled)))
 
@@ -24,47 +37,17 @@ object CROMGenerator {
     }
 
   def fixGenerics(in: String): String = in.replaceAll("<", "[").replaceAll(">", "]")
-  
-  def fixGenericsAndStandards(in: String): String = {
-    val staType = getStandardType(in)
-    if (staType != null)
-      return staType
-    return in.replaceAll("<", "[").replaceAll(">", "]")
-  }
-  
-  private def getStandardType(in: String): String = {
-    if (in == "String")
-      return "String"
-    if (in == "Integer" || in == "Int")
-      return "Int"
-    if (in == "Boolean")
-      return "Boolean"
-    if (in == "Byte")
-      return "Byte"
-    if (in == "Char")
-      return "Char"
-    if (in == "Double")
-      return "Double"
-    if (in == "Float")
-      return "Float"
-    if (in == "Long")
-      return "Long"
-    if (in == "Short")
-      return "Short"  
-    return null
-  }
-  
-  def isStandardType(in: String): Boolean = {
-    if (getStandardType(in) == null)
-      return false
-    return true 
-  }
+
+  def fixGenericsAndStandards(in: String): String = fixGenerics(getStandardType(in))
+
+  private def getStandardType(in: String): String = STANDARD_TYPE_MAPPINGS.getOrElse(in, in)
+
+  def isStandardType(in: String): Boolean = STANDARD_TYPE_MAPPINGS.isDefinedAt(in)
 
   def placeToString(place: Place): String =
     if (place == null) {
       "*"
-    }
-    else {
+    } else {
       (place.getLower, place.getUpper) match {
         case (-1, -1) => "0 To *"
         case (l, -1) => l + " To *"
@@ -111,9 +94,7 @@ object CROMGenerator {
   }
 
   def getRoleConstraints(comp: CompartmentType): Traversable[(Constraint, String, String)] = comp.getConstraints.asScala.filter {
-    case _: RoleEquivalence => true
-    case _: RoleImplication => true
-    case _: RoleProhibition => true
+    case _: RoleEquivalence | _: RoleImplication | _: RoleProhibition => true
     case _ => false
   }.map(_.asInstanceOf[RoleConstraint]).flatMap {
     case c if c.getFirst.isInstanceOf[RoleType] && c.getSecond.isInstanceOf[RoleType] => List((c, getName(c.getFirst), getName(c.getSecond)))
@@ -127,7 +108,7 @@ object CROMGenerator {
       case i: Int => i.toString
     }
 
-    def lowerToString(c: Int) = c match {
+    def lowerToString(c: Int): String = c match {
       case -1 => println(s" => Warning: Lower bound for limit constraint of role-group '${rg.getName}' not specified! Setting it to '0'."); "0"
       case i: Int => i.toString
     }
