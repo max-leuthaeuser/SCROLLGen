@@ -1,4 +1,4 @@
-val scalariform = "0.2.7"
+val scalariform = "0.2.8"
 val emfcommon = "2.15.0"
 val emfcore = "2.15.0"
 val uml2 = "3.1.0.v201006071150"
