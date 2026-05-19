@@ -11,9 +11,9 @@ import org.eclipse.emf.ecore.{EObject, EPackage}
   * Remember to set the <code>path</code>, <code>extension</code> and <code>packageInstance</code> variable!
   */
 trait ECoreImporter[E <: EObject] {
-  var path: String = _
-  var extension: String = _
-  var packageInstance: EPackage = _
+  var path: String                = ""
+  var extension: String           = ""
+  var packageInstance: EPackage | Null = null
 
   /**
     * Load and imports an ecore model.
@@ -24,10 +24,10 @@ trait ECoreImporter[E <: EObject] {
   def loadModel(): E = {
     require(null != path && path.nonEmpty, "Invalid model path!")
     require(null != extension && extension.nonEmpty, "Invalid model file extension!")
-    require(null != packageInstance)
+    require(packageInstance != null)
 
     // Initialize the model
-    packageInstance.eClass()
+    packageInstance.nn.eClass()
 
     // Register the XMI resource factory for the .website extension
     val reg = Resource.Factory.Registry.INSTANCE

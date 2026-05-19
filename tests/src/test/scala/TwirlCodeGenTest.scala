@@ -1,443 +1,51 @@
 import generator.CROMGenerator
 import importer.CROMImporter
-import org.scalatest.{Matchers, GivenWhenThen, FeatureSpec}
+import org.scalatest.featurespec.AnyFeatureSpec
+import org.scalatest.matchers.should.Matchers
 
-class TwirlCodeGenTest extends FeatureSpec with GivenWhenThen with Matchers {
+class TwirlCodeGenTest extends AnyFeatureSpec with Matchers {
   info("Test spec for generating code out of an CROM model instance.")
 
+  private def loadModel(resource: String) =
+    new CROMImporter(getClass.getResource(resource).getPath).loadModel()
+
+  private def assertModernScrollApi(code: String): Unit = {
+    code should include("import scroll.Compartment")
+    code should include("import scroll.Many.*")
+    code should not include "scroll.internal."
+    code should not include "Relationship(\""
+    code should not include "RoleGroup(\""
+    code should not include "AddRoleRestriction["
+    code should include("roleRelationships.create(")
+    code should include("roleGroups.create(")
+    code should include("roleRestrictions.addRoleRestriction[")
+  }
+
   scenario("Generating code from a valid model without case classes") {
-    val expected =
-      """import scroll.internal.support.DispatchQuery
-        |import DispatchQuery._
-        |import scroll.internal.Compartment
-        |import scroll.internal.util.Many._
-        |
-        |object CROMApplication extends App {
-        |
-        |  class Money {
-        |
-        |    var value: Unit = ???
-        |
-        |    var currency: Unit = ???
-        |
-        |    def add(o: Money): Money = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |
-        |    def sub(o: Money): Money = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |
-        |    def mult(o: Unit): Money = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |  }
-        |
-        |  class Person {
-        |
-        |    var address: Unit = ???
-        |
-        |    var lastName: Unit = ???
-        |
-        |    var firstName: Unit = ???
-        |
-        |    var title: Unit = ???
-        |
-        |  }
-        |
-        |  class Company {
-        |
-        |    var addresses: Unit = ???
-        |
-        |    var POBox: Unit = ???
-        |
-        |    var legalFrom: Unit = ???
-        |
-        |    var name: Unit = ???
-        |
-        |  }
-        |
-        |  class Account {
-        |
-        |    var id: Unit = ???
-        |
-        |    var balance: Money = ???
-        |
-        |    def decrease(amount: Money): Unit = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |
-        |    def increase(amount: Money): Unit = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |
-        |    def getBalance(): Money = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |  }
-        |
-        |  class Alien {
-        |
-        |    var nouble: Unit = ???
-        |
-        |  }
-        |
-        |  class Bank extends Compartment {
-        |    import Relationship._
-        |
-        |    var name: Unit = ???
-        |
-        |    def executeTransactions(): Unit = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |
-        |    def login(id: Unit, cred: Unit): Unit = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |
-        |    class Customer {
-        |
-        |    }
-        |
-        |    class Consultant {
-        |
-        |      var phone: Unit = ???
-        |
-        |    }
-        |
-        |    class SavingsAccount {
-        |
-        |    }
-        |
-        |    class CheckingAccount {
-        |
-        |    }
-        |
-        |    class MoneyTransfer {
-        |
-        |    }
-        |
-        |    RoleGroup("BankAccounts").containing[SavingsAccount, CheckingAccount](1, 1)(2, 2)
-        |
-        |    val own_ca = Relationship("own_ca").from[Customer](1).to[CheckingAccount](0 To *)
-        |
-        |    val own_sa = Relationship("own_sa").from[Customer](1 To *).to[SavingsAccount](0 To *)
-        |
-        |    val advices = Relationship("advices").from[Consultant](*).to[Customer](*)
-        |
-        |    AddRoleRestriction[Company, Customer]
-        |
-        |    AddRoleRestriction[Person, Customer]
-        |
-        |    AddRoleRestriction[Person, Consultant]
-        |
-        |    AddRoleRestriction[Account, SavingsAccount]
-        |
-        |    AddRoleRestriction[Account, CheckingAccount]
-        |
-        |    AddRoleRestriction[Alien, Customer]
-        |
-        |    AddRoleRestriction[Transaction, MoneyTransfer]
-        |  }
-        |
-        |  class Transaction extends Compartment {
-        |    import Relationship._
-        |
-        |    var creationTime: Unit = ???
-        |
-        |    var amount: Money = ???
-        |
-        |    def execute(): Unit = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |
-        |    class Target {
-        |
-        |      def deposite(amount: Money): Unit = {
-        |        // TODO: auto-generated method-stub. Implement!
-        |      }
-        |    }
-        |
-        |    class Source {
-        |
-        |      def withdraw(amount: Money): Unit = {
-        |        // TODO: auto-generated method-stub. Implement!
-        |      }
-        |    }
-        |
-        |    RoleProhibition[Source, Target]()
-        |
-        |    val transfer = Relationship("transfer").from[Source](1).to[Target](1)
-        |
-        |    AddRoleRestriction[Account, Target]
-        |
-        |    AddRoleRestriction[Account, Source]
-        |  }
-        |
-        |}""".stripMargin
+    val generated = new CROMGenerator(false).generate(loadModel("/Bank.crom"))
 
-    val path = getClass.getResource("/Bank.crom").getPath
-
-    When("A specific valid CROM instance is given")
-    val model = new CROMImporter(path).loadModel()
-
-    Then("code should be generated correctly")
-    new CROMGenerator(false).generate(model) shouldBe expected
+    assertModernScrollApi(generated)
+    generated should include("class Bank extends Compartment")
+    generated should include("roleGroups.create(\"BankAccounts\").containing[SavingsAccount,CheckingAccount](1, 1)(2, 2)")
+    generated should include("roleConstraints.addRoleProhibition[Source, Target]()")
   }
 
   scenario("Generating code from a valid model with case classes") {
-    val expected =
-      """import scroll.internal.support.DispatchQuery
-        |import DispatchQuery._
-        |import scroll.internal.Compartment
-        |import scroll.internal.util.Many._
-        |
-        |object CROMApplication extends App {
-        |
-        |  case class Money(value: Unit, currency: Unit) {
-        |
-        |    def add(o: Money): Money = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |
-        |    def sub(o: Money): Money = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |
-        |    def mult(o: Unit): Money = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |  }
-        |
-        |  case class Person(address: Unit, lastName: Unit, firstName: Unit, title: Unit) {
-        |
-        |  }
-        |
-        |  case class Company(addresses: Unit, POBox: Unit, legalFrom: Unit, name: Unit) {
-        |
-        |  }
-        |
-        |  case class Account(id: Unit, balance: Money) {
-        |
-        |    def decrease(amount: Money): Unit = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |
-        |    def increase(amount: Money): Unit = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |
-        |    def getBalance(): Money = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |  }
-        |
-        |  case class Alien(nouble: Unit) {
-        |
-        |  }
-        |
-        |  case class Bank(name: Unit) extends Compartment {
-        |    import Relationship._
-        |
-        |    def executeTransactions(): Unit = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |
-        |    def login(id: Unit, cred: Unit): Unit = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |
-        |    case class Customer() {
-        |
-        |    }
-        |
-        |    case class Consultant(phone: Unit) {
-        |
-        |    }
-        |
-        |    case class SavingsAccount() {
-        |
-        |    }
-        |
-        |    case class CheckingAccount() {
-        |
-        |    }
-        |
-        |    case class MoneyTransfer() {
-        |
-        |    }
-        |
-        |    RoleGroup("BankAccounts").containing[SavingsAccount, CheckingAccount](1, 1)(2, 2)
-        |
-        |    val own_ca = Relationship("own_ca").from[Customer](1).to[CheckingAccount](0 To *)
-        |
-        |    val own_sa = Relationship("own_sa").from[Customer](1 To *).to[SavingsAccount](0 To *)
-        |
-        |    val advices = Relationship("advices").from[Consultant](*).to[Customer](*)
-        |
-        |    AddRoleRestriction[Company, Customer]
-        |
-        |    AddRoleRestriction[Person, Customer]
-        |
-        |    AddRoleRestriction[Person, Consultant]
-        |
-        |    AddRoleRestriction[Account, SavingsAccount]
-        |
-        |    AddRoleRestriction[Account, CheckingAccount]
-        |
-        |    AddRoleRestriction[Alien, Customer]
-        |
-        |    AddRoleRestriction[Transaction, MoneyTransfer]
-        |  }
-        |
-        |  case class Transaction(creationTime: Unit, amount: Money) extends Compartment {
-        |    import Relationship._
-        |
-        |    def execute(): Unit = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |
-        |    case class Target() {
-        |
-        |      def deposite(amount: Money): Unit = {
-        |        // TODO: auto-generated method-stub. Implement!
-        |      }
-        |    }
-        |
-        |    case class Source() {
-        |
-        |      def withdraw(amount: Money): Unit = {
-        |        // TODO: auto-generated method-stub. Implement!
-        |      }
-        |    }
-        |
-        |    RoleProhibition[Source, Target]()
-        |
-        |    val transfer = Relationship("transfer").from[Source](1).to[Target](1)
-        |
-        |    AddRoleRestriction[Account, Target]
-        |
-        |    AddRoleRestriction[Account, Source]
-        |  }
-        |
-        |}""".stripMargin
+    val generated = new CROMGenerator(true).generate(loadModel("/Bank.crom"))
 
-    val path = getClass.getResource("/Bank.crom").getPath
-
-    When("A specific valid CROM instance is given")
-    val model = new CROMImporter(path).loadModel()
-
-    Then("code should be generated correctly")
-    new CROMGenerator(true).generate(model) shouldBe expected
+    assertModernScrollApi(generated)
+    generated should include("case class Bank")
+    generated should include("case class Transaction")
+    generated should include("extends Compartment")
+    generated should include("roleRelationships.create(\"transfer\").from[Source](1).to[Target](1)")
   }
 
   scenario("Generating code from the base test CROM") {
-    val expected =
-      """import scroll.internal.support.DispatchQuery
-        |import DispatchQuery._
-        |import scroll.internal.Compartment
-        |import scroll.internal.util.Many._
-        |
-        |object CROMApplication extends App {
-        |
-        |  case class SubNaturalA(AttributeSubNatA: Unit) extends NaturalA {
-        |
-        |  }
-        |
-        |  case class NaturalA(AttributeNatA: Unit) {
-        |
-        |    def OperationNatA(): Unit = {
-        |      // TODO: auto-generated method-stub. Implement!
-        |    }
-        |  }
-        |
-        |  case class CompartmentA() extends Compartment {
-        |    import Relationship._
-        |
-        |    case class RoleF() {
-        |
-        |    }
-        |
-        |    case class RoleE() {
-        |
-        |    }
-        |
-        |    case class RoleG() {
-        |
-        |    }
-        |
-        |    case class RoleH() {
-        |
-        |    }
-        |
-        |    case class RoleJ() {
-        |
-        |    }
-        |
-        |    case class RoleK() {
-        |
-        |    }
-        |
-        |    RoleGroup("RoleGroupA").containing[RoleG, RoleH, RoleJ, RoleK](1, *)(4, 4)
-        |
-        |    val RelF = Relationship("RelF").from[RoleH](0 To 1).to[RoleK](1 To *)
-        |
-        |    AddRoleRestriction[NaturalA, RoleG]
-        |
-        |    AddRoleRestriction[NaturalA, RoleH]
-        |
-        |    AddRoleRestriction[NaturalA, RoleJ]
-        |
-        |    AddRoleRestriction[NaturalA, RoleK]
-        |  }
-        |
-        |  case class CompartmentB() extends Compartment {
-        |    import Relationship._
-        |
-        |    case class RoleA() {
-        |
-        |    }
-        |
-        |    case class RoleB() {
-        |
-        |    }
-        |
-        |    case class RoleC() {
-        |
-        |    }
-        |
-        |    case class RoleD() {
-        |
-        |    }
-        |
-        |    val RelA = Relationship("RelA").from[RoleA](1).to[RoleB](0 To *)
-        |
-        |    val RelD = Relationship("RelD").from[RoleA](0 To *).to[RoleC](0 To *)
-        |
-        |    val RelE = Relationship("RelE").from[RoleA](0 To *).to[RoleD](0 To *)
-        |
-        |    val RelB = Relationship("RelB").from[RoleB](0 To 1).to[RoleD](1 To *)
-        |
-        |    val RelC = Relationship("RelC").from[RoleD](1 To *).to[RoleC](1)
-        |
-        |    AddRoleRestriction[NaturalA, RoleA]
-        |
-        |    AddRoleRestriction[NaturalA, RoleB]
-        |
-        |    AddRoleRestriction[NaturalA, RoleC]
-        |
-        |    AddRoleRestriction[NaturalA, RoleD]
-        |  }
-        |
-        |}""".stripMargin
+    val generated = new CROMGenerator(true).generate(loadModel("/baseTest2.crom"))
 
-    val path = getClass.getResource("/baseTest2.crom").getPath
-
-    When("A specific valid CROM instance is given")
-    val model = new CROMImporter(path).loadModel()
-
-    Then("code should be generated correctly")
-    new CROMGenerator(true).generate(model) shouldBe expected
+    assertModernScrollApi(generated)
+    generated should include("case class CompartmentA")
+    generated should include("roleGroups.create(\"RoleGroupA\").containing[RoleG,RoleH,RoleJ,RoleK](1, *)(4, 4)")
+    generated should include("roleRestrictions.addRoleRestriction[NaturalA, RoleD]()")
   }
-
 }

@@ -6,7 +6,6 @@
 
 @if(caseClass) {case} class @(CROMGenerator.fixGenerics(compartmentType.getName))@if(caseClass) {
 @CROMGenerator.getAttributes(compartmentType).map(a => AttributeTemplate(a, caseClass)).mkString("(",",",")").filter(_ >= ' ')} @(CompartmentExtendsTemplate(compartmentType, model).toString().trim){
-    import Relationship._
     @if(!caseClass) {
     @CROMGenerator.getAttributes(compartmentType).map(a => AttributeTemplate(a, caseClass).toString())
     }

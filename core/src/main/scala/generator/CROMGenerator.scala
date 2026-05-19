@@ -1,11 +1,8 @@
 package generator
 
-import collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import crom_l1_composed._
 import templates.txt.CROMApplicationTemplate
-
-import scalariform.formatter.ScalaFormatter
-import scalariform.parser.ScalaParserException
 
 object CROMGenerator {
 
@@ -179,15 +176,5 @@ object CROMGenerator {
 }
 
 class CROMGenerator(caseClass: Boolean) extends Generator[Model] {
-  override def generate(model: Model): String = {
-    val result = CROMApplicationTemplate(model, caseClass).toString().trim
-    try {
-      ScalaFormatter.format(result)
-    } catch {
-      case err: ScalaParserException =>
-        println(s" => Error: Code formatting failed with '$err'!")
-        println(" => Warning: Printing non-formatted code.")
-        result
-    }
-  }
+  override def generate(model: Model): String = CROMApplicationTemplate(model, caseClass).toString().trim
 }

@@ -7,7 +7,7 @@
 @import crom_l1_composed.RoleProhibition
 
 @const._1 match {
-    case c: RoleEquivalence => { RoleEquivalence[@const._2, @const._3]() }
-    case c: RoleImplication => { RoleImplication[@const._2, @const._3]() }
-    case c: RoleProhibition => { RoleProhibition[@const._2, @const._3]() }
+    case c: RoleEquivalence => { roleConstraints.addRoleEquivalence[@const._2, @const._3]() }
+    case c: RoleImplication => { roleConstraints.addRoleImplication[@const._2, @const._3]() }
+    case c: RoleProhibition => { roleConstraints.addRoleProhibition[@const._2, @const._3]() }
 }
