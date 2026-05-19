@@ -1,0 +1,201 @@
+import scroll.Compartment
+import scroll.Many.*
+
+object CROMApplication extends App {
+    
+    
+
+
+case class SubNaturalA
+( AttributeSubNatA: Unit ) extends NaturalA{
+    
+    
+}
+
+
+
+case class NaturalA
+( AttributeNatA: Unit ) {
+    
+    
+
+
+def OperationNatA(): 
+
+
+Unit
+ = {
+    // TODO: auto-generated method-stub. Implement!
+}
+}
+
+    
+
+
+case class CompartmentA
+() extends Compartment{
+    
+    
+    
+
+
+case class RoleF
+() {
+    
+    
+}
+
+
+
+case class RoleE
+() {
+    
+    
+}
+
+
+
+case class RoleG
+() {
+    
+    
+}
+
+
+
+case class RoleH
+() {
+    
+    
+}
+
+
+
+case class RoleJ
+() {
+    
+    
+}
+
+
+
+case class RoleK
+() {
+    
+    
+}
+
+    
+
+
+
+
+roleGroups.create("RoleGroupA").containing[RoleG,RoleH,RoleJ,RoleK](1, *)(4, 4)
+
+    
+    
+
+
+val RelF = roleRelationships.create("RelF").from[RoleH](0 To 1).to[RoleK](1 To *)
+
+    
+
+
+roleRestrictions.addRoleRestriction[NaturalA, RoleG]()
+
+
+
+roleRestrictions.addRoleRestriction[NaturalA, RoleH]()
+
+
+
+roleRestrictions.addRoleRestriction[NaturalA, RoleJ]()
+
+
+
+roleRestrictions.addRoleRestriction[NaturalA, RoleK]()
+
+}
+
+
+
+case class CompartmentB
+() extends Compartment{
+    
+    
+    
+
+
+case class RoleA
+() {
+    
+    
+}
+
+
+
+case class RoleB
+() {
+    
+    
+}
+
+
+
+case class RoleC
+() {
+    
+    
+}
+
+
+
+case class RoleD
+() {
+    
+    
+}
+
+    
+    
+    
+
+
+val RelA = roleRelationships.create("RelA").from[RoleA](1).to[RoleB](0 To *)
+
+
+
+val RelD = roleRelationships.create("RelD").from[RoleA](0 To *).to[RoleC](0 To *)
+
+
+
+val RelE = roleRelationships.create("RelE").from[RoleA](0 To *).to[RoleD](0 To *)
+
+
+
+val RelB = roleRelationships.create("RelB").from[RoleB](0 To 1).to[RoleD](1 To *)
+
+
+
+val RelC = roleRelationships.create("RelC").from[RoleD](1 To *).to[RoleC](1)
+
+    
+
+
+roleRestrictions.addRoleRestriction[NaturalA, RoleA]()
+
+
+
+roleRestrictions.addRoleRestriction[NaturalA, RoleB]()
+
+
+
+roleRestrictions.addRoleRestriction[NaturalA, RoleC]()
+
+
+
+roleRestrictions.addRoleRestriction[NaturalA, RoleD]()
+
+}
+
+}
