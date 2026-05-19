@@ -3,6 +3,7 @@ package generator
 import scala.jdk.CollectionConverters._
 import crom_l1_composed._
 import templates.txt.CROMApplicationTemplate
+import org.scalafmt.interfaces.ScalafmtException
 
 object CROMGenerator {
 
@@ -176,5 +177,15 @@ object CROMGenerator {
 }
 
 class CROMGenerator(caseClass: Boolean) extends Generator[Model] {
-  override def generate(model: Model): String = CROMApplicationTemplate(model, caseClass).toString().trim
+  override def generate(model: Model): String = {
+    val result = CROMApplicationTemplate(model, caseClass).toString().trim
+    try {
+      ScalaFormatter.format(result)
+    } catch {
+      case err: ScalafmtException =>
+        println(s" => Error: Code formatting failed with '$err'!")
+        println(" => Warning: Printing non-formatted code.")
+        result
+    }
+  }
 }

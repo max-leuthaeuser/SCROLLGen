@@ -2,318 +2,136 @@ import scroll.Compartment
 import scroll.Many.*
 
 object CROMApplication extends App {
-    
 
+  case class Money(value: Unit, currency: Unit) {
 
+    def add(o: Money): Money = {
+      // TODO: auto-generated method-stub. Implement!
+    }
 
-case class Money
-( value: Unit , currency: Unit ) {
-    
-    
+    def sub(o: Money): Money = {
+      // TODO: auto-generated method-stub. Implement!
+    }
 
+    def mult(o: Unit): Money = {
+      // TODO: auto-generated method-stub. Implement!
+    }
+  }
 
-def add(o:
+  case class Person(
+      address: Unit,
+      lastName: Unit,
+      firstName: Unit,
+      title: Unit
+  ) {}
 
+  case class Company(
+      addresses: Unit,
+      POBox: Unit,
+      legalFrom: Unit,
+      name: Unit
+  ) {}
 
-Money): 
+  case class Account(id: Unit, balance: Money) {
 
+    def decrease(amount: Money): Unit = {
+      // TODO: auto-generated method-stub. Implement!
+    }
 
-Money
- = {
-    // TODO: auto-generated method-stub. Implement!
-}
+    def increase(amount: Money): Unit = {
+      // TODO: auto-generated method-stub. Implement!
+    }
 
+    def getBalance(): Money = {
+      // TODO: auto-generated method-stub. Implement!
+    }
+  }
 
-def sub(o:
+  case class Alien(nouble: Unit) {}
 
+  case class Bank(name: Unit) extends Compartment {
 
-Money): 
+    def executeTransactions(): Unit = {
+      // TODO: auto-generated method-stub. Implement!
+    }
 
+    def login(id: Unit, cred: Unit): Unit = {
+      // TODO: auto-generated method-stub. Implement!
+    }
 
-Money
- = {
-    // TODO: auto-generated method-stub. Implement!
-}
+    case class Customer() {}
 
+    case class Consultant(phone: Unit) {}
 
-def mult(o:
+    case class SavingsAccount() {}
 
+    case class CheckingAccount() {}
 
-Unit): 
+    case class MoneyTransfer() {}
 
+    roleGroups
+      .create("BankAccounts")
+      .containing[SavingsAccount, CheckingAccount](1, 1)(2, 2)
 
-Money
- = {
-    // TODO: auto-generated method-stub. Implement!
-}
-}
+    val own_ca = roleRelationships
+      .create("own_ca")
+      .from[Customer](1)
+      .to[CheckingAccount](0 To *)
 
-    
+    val own_sa = roleRelationships
+      .create("own_sa")
+      .from[Customer](1 To *)
+      .to[SavingsAccount](0 To *)
 
+    val advices =
+      roleRelationships.create("advices").from[Consultant](*).to[Customer](*)
 
-case class Person
-( address: Unit , lastName: Unit , firstName: Unit , title: Unit ) {
-    
-    
-}
+    roleRestrictions.addRoleRestriction[Company, Customer]()
 
+    roleRestrictions.addRoleRestriction[Person, Customer]()
 
+    roleRestrictions.addRoleRestriction[Person, Consultant]()
 
-case class Company
-( addresses: Unit , POBox: Unit , legalFrom: Unit , name: Unit ) {
-    
-    
-}
+    roleRestrictions.addRoleRestriction[Account, SavingsAccount]()
 
+    roleRestrictions.addRoleRestriction[Account, CheckingAccount]()
 
+    roleRestrictions.addRoleRestriction[Alien, Customer]()
 
-case class Account
-( id: Unit , balance: Money ) {
-    
-    
+    roleRestrictions.addRoleRestriction[Transaction, MoneyTransfer]()
 
+  }
 
-def decrease(amount:
+  case class Transaction(creationTime: Unit, amount: Money)
+      extends Compartment {
 
+    def execute(): Unit = {
+      // TODO: auto-generated method-stub. Implement!
+    }
 
-Money): 
+    case class Target() {
 
+      def deposite(amount: Money): Unit = {
+        // TODO: auto-generated method-stub. Implement!
+      }
+    }
 
-Unit
- = {
-    // TODO: auto-generated method-stub. Implement!
-}
+    case class Source() {
 
+      def withdraw(amount: Money): Unit = {
+        // TODO: auto-generated method-stub. Implement!
+      }
+    }
 
-def increase(amount:
+    roleConstraints.addRoleProhibition[Source, Target]()
 
+    val transfer =
+      roleRelationships.create("transfer").from[Source](1).to[Target](1)
 
-Money): 
+    roleRestrictions.addRoleRestriction[Account, Target]()
 
+    roleRestrictions.addRoleRestriction[Account, Source]()
 
-Unit
- = {
-    // TODO: auto-generated method-stub. Implement!
-}
-
-
-def getBalance(): 
-
-
-Money
- = {
-    // TODO: auto-generated method-stub. Implement!
-}
-}
-
-
-
-case class Alien
-( nouble: Unit ) {
-    
-    
-}
-
-    
-
-
-case class Bank
-( name: Unit ) extends Compartment{
-    
-    
-
-
-def executeTransactions(): 
-
-
-Unit
- = {
-    // TODO: auto-generated method-stub. Implement!
-}
-
-
-def login(id:
-
-
-Unit,cred:
-
-
-Unit): 
-
-
-Unit
- = {
-    // TODO: auto-generated method-stub. Implement!
-}
-    
-
-
-case class Customer
-() {
-    
-    
-}
-
-
-
-case class Consultant
-( phone: Unit ) {
-    
-    
-}
-
-
-
-case class SavingsAccount
-() {
-    
-    
-}
-
-
-
-case class CheckingAccount
-() {
-    
-    
-}
-
-
-
-case class MoneyTransfer
-() {
-    
-    
-}
-
-    
-
-
-
-
-roleGroups.create("BankAccounts").containing[SavingsAccount,CheckingAccount](1, 1)(2, 2)
-
-    
-    
-
-
-val own_ca = roleRelationships.create("own_ca").from[Customer](1).to[CheckingAccount](0 To *)
-
-
-
-val own_sa = roleRelationships.create("own_sa").from[Customer](1 To *).to[SavingsAccount](0 To *)
-
-
-
-val advices = roleRelationships.create("advices").from[Consultant](*).to[Customer](*)
-
-    
-
-
-roleRestrictions.addRoleRestriction[Company, Customer]()
-
-
-
-roleRestrictions.addRoleRestriction[Person, Customer]()
-
-
-
-roleRestrictions.addRoleRestriction[Person, Consultant]()
-
-
-
-roleRestrictions.addRoleRestriction[Account, SavingsAccount]()
-
-
-
-roleRestrictions.addRoleRestriction[Account, CheckingAccount]()
-
-
-
-roleRestrictions.addRoleRestriction[Alien, Customer]()
-
-
-
-roleRestrictions.addRoleRestriction[Transaction, MoneyTransfer]()
-
-}
-
-
-
-case class Transaction
-( creationTime: Unit , amount: Money ) extends Compartment{
-    
-    
-
-
-def execute(): 
-
-
-Unit
- = {
-    // TODO: auto-generated method-stub. Implement!
-}
-    
-
-
-case class Target
-() {
-    
-    
-
-
-def deposite(amount:
-
-
-Money): 
-
-
-Unit
- = {
-    // TODO: auto-generated method-stub. Implement!
-}
-}
-
-
-
-case class Source
-() {
-    
-    
-
-
-def withdraw(amount:
-
-
-Money): 
-
-
-Unit
- = {
-    // TODO: auto-generated method-stub. Implement!
-}
-}
-
-    
-    
-
-
- roleConstraints.addRoleProhibition[Source, Target]() 
-
-    
-
-
-val transfer = roleRelationships.create("transfer").from[Source](1).to[Target](1)
-
-    
-
-
-roleRestrictions.addRoleRestriction[Account, Target]()
-
-
-
-roleRestrictions.addRoleRestriction[Account, Source]()
-
-}
+  }
 
 }

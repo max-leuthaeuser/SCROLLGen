@@ -3,6 +3,7 @@ ThisBuild / scalaVersion := "3.8.3"
 val emfcommon = "2.45.0"
 val emfcore   = "2.42.0"
 val uml2      = "3.1.0.v201006071150"
+val scalafmt  = "3.9.6"
 val scalatest = "3.2.20"
 
 lazy val commonSettings = Seq(
@@ -36,6 +37,8 @@ lazy val core = (project in file("core"))
   .settings(commonSettings*)
   .settings(
     name := "SCROLLGen",
+    libraryDependencies += ("org.scalameta" % "scalafmt-dynamic_2.13" % scalafmt)
+      .exclude("org.scala-lang.modules", "scala-xml_2.13"),
     assembly / assemblyMergeStrategy := {
       case "plugin.properties" => MergeStrategy.last
       case "plugin.xml"        => MergeStrategy.last
