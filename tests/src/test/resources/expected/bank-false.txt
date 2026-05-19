@@ -1,0 +1,168 @@
+import scroll.Compartment
+import scroll.Many.*
+
+object CROMApplication extends App {
+
+  class Money {
+
+    var value: Unit = ???
+
+    var currency: Unit = ???
+
+    def add(o: Money): Money = {
+      // TODO: auto-generated method-stub. Implement!
+    }
+
+    def sub(o: Money): Money = {
+      // TODO: auto-generated method-stub. Implement!
+    }
+
+    def mult(o: Unit): Money = {
+      // TODO: auto-generated method-stub. Implement!
+    }
+  }
+
+  class Person {
+
+    var address: Unit = ???
+
+    var lastName: Unit = ???
+
+    var firstName: Unit = ???
+
+    var title: Unit = ???
+
+  }
+
+  class Company {
+
+    var addresses: Unit = ???
+
+    var POBox: Unit = ???
+
+    var legalFrom: Unit = ???
+
+    var name: Unit = ???
+
+  }
+
+  class Account {
+
+    var id: Unit = ???
+
+    var balance: Money = ???
+
+    def decrease(amount: Money): Unit = {
+      // TODO: auto-generated method-stub. Implement!
+    }
+
+    def increase(amount: Money): Unit = {
+      // TODO: auto-generated method-stub. Implement!
+    }
+
+    def getBalance(): Money = {
+      // TODO: auto-generated method-stub. Implement!
+    }
+  }
+
+  class Alien {
+
+    var nouble: Unit = ???
+
+  }
+
+  class Bank extends Compartment {
+
+    var name: Unit = ???
+
+    def executeTransactions(): Unit = {
+      // TODO: auto-generated method-stub. Implement!
+    }
+
+    def login(id: Unit, cred: Unit): Unit = {
+      // TODO: auto-generated method-stub. Implement!
+    }
+
+    class Customer {}
+
+    class Consultant {
+
+      var phone: Unit = ???
+
+    }
+
+    class SavingsAccount {}
+
+    class CheckingAccount {}
+
+    class MoneyTransfer {}
+
+    roleGroups
+      .create("BankAccounts")
+      .containing[SavingsAccount, CheckingAccount](1, 1)(2, 2)
+
+    val own_ca = roleRelationships
+      .create("own_ca")
+      .from[Customer](1)
+      .to[CheckingAccount](0 To *)
+
+    val own_sa = roleRelationships
+      .create("own_sa")
+      .from[Customer](1 To *)
+      .to[SavingsAccount](0 To *)
+
+    val advices =
+      roleRelationships.create("advices").from[Consultant](*).to[Customer](*)
+
+    roleRestrictions.addRoleRestriction[Company, Customer]()
+
+    roleRestrictions.addRoleRestriction[Person, Customer]()
+
+    roleRestrictions.addRoleRestriction[Person, Consultant]()
+
+    roleRestrictions.addRoleRestriction[Account, SavingsAccount]()
+
+    roleRestrictions.addRoleRestriction[Account, CheckingAccount]()
+
+    roleRestrictions.addRoleRestriction[Alien, Customer]()
+
+    roleRestrictions.addRoleRestriction[Transaction, MoneyTransfer]()
+
+  }
+
+  class Transaction extends Compartment {
+
+    var creationTime: Unit = ???
+
+    var amount: Money = ???
+
+    def execute(): Unit = {
+      // TODO: auto-generated method-stub. Implement!
+    }
+
+    class Target {
+
+      def deposite(amount: Money): Unit = {
+        // TODO: auto-generated method-stub. Implement!
+      }
+    }
+
+    class Source {
+
+      def withdraw(amount: Money): Unit = {
+        // TODO: auto-generated method-stub. Implement!
+      }
+    }
+
+    roleConstraints.addRoleProhibition[Source, Target]()
+
+    val transfer =
+      roleRelationships.create("transfer").from[Source](1).to[Target](1)
+
+    roleRestrictions.addRoleRestriction[Account, Target]()
+
+    roleRestrictions.addRoleRestriction[Account, Source]()
+
+  }
+
+}

@@ -3,10 +3,8 @@
 @import generator.CROMGenerator
 @import crom_l1_composed.Model
 
-import scroll.internal.support.DispatchQuery
-import DispatchQuery._
-import scroll.internal.Compartment
-import scroll.internal.util.Many._
+import scroll.Compartment
+import scroll.Many.*
 
 object CROMApplication extends App {
     @generator.CROMGenerator.getDataTypes(model).map(d => DataTypeTemplate(d, model, caseClass).toString())
